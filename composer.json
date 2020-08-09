@@ -1,0 +1,30 @@
+{
+	"name": "gandung/tokopedia-php-sdk",
+	"type": "library",
+	"description": "PHP SDK for Tokopedia API.",
+	"license": "BSD-3-Clause",
+	"keywords": [
+		"tokopedia",
+		"tokopedia-api",
+		"tokopedia-sdk",
+		"tokopedia-sdk-api",
+		"tokopedia-api-sdk"
+	],
+	"config": {
+		"sort-packages": true
+	},
+	"autoload": {
+		"psr-4": {
+			"Gandung\\Tokopedia\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Gandung\\Tokopedia\\Tests\\": "tests/"
+		}
+	},
+	"require": {
+		"php": "^7.1",
+		"guzzlehttp/guzzle": "^7.0"
+	}
+}
