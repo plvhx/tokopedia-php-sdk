@@ -362,6 +362,13 @@ class Product extends AbstractService
 		);
 	}
 
+	/**
+	 * Update price for defined product.
+	 *
+	 * @param int $shopID Shop ID.
+	 * @param array $data
+	 * @return string
+	 */
 	public function updatePriceOnly(int $shopID, array $data)
 	{
 		$this->setEndpoint(
@@ -385,6 +392,13 @@ class Product extends AbstractService
 		);
 	}
 
+	/**
+	 * Update stock for defined product.
+	 *
+	 * @param int $shopID Shop ID.
+	 * @param array $data
+	 * @return string
+	 */
 	public function updateStockOnly(int $shopID, array $data)
 	{
 		$this->setEndpoint(
@@ -408,6 +422,13 @@ class Product extends AbstractService
 		);
 	}
 
+	/**
+	 * Delete a product or list of products.
+	 *
+	 * @param int $shopID Shop ID.
+	 * @param array $data
+	 * @return string
+	 */
 	public function deleteProduct(int $shopID, array $data)
 	{
 		$this->setEndpoint(
