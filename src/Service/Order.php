@@ -67,6 +67,21 @@ class Order extends AbstractService
 	 */
 	const ORDER_REJECT_BUYER_REQUEST = 8;
 
+	/**
+	 * Get all orders.
+	 *
+	 * @param int $fromDate From date (timestamp).
+	 * @param int $toDate To date (timestamp).
+	 * @param int $page Current pagination page.
+	 * @param int $perPage How much item to be showed per page.
+	 * @param int $shopID Shop ID.
+	 * @param int $warehouseID Warehouse ID.
+	 * @param int $status Status.
+	 * @return string
+	 * @throws InvalidArgumentException When current page number less than 1.
+	 * @throws InvalidArgumentException When Shop ID and Warehouse ID both exists.
+	 * @throws InvalidArgumentException When status code is invalid.
+	 */
 	public function getAllOrders(
 		int $fromDate,
 		int $toDate,
@@ -188,6 +203,33 @@ class Order extends AbstractService
 				$this->getFulfillmentServiceID()
 			)
 		);
+
+		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
+	}
+
+	public function updateOrderStatus(int $orderID, array $data)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/v1/order/%d/fs/%s/status',
+				$orderID,
+				$this->getFulfillmentServiceID()
+			)
+		);
+
+		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
+	}
+
+	public function requestPickUp(array $data)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/inventory/v1/fs/%s/pick-up',
+				$this->getFulfillmentServiceID()
+			)
+		);
+
+		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
 	private function getAggregatedOrderStatusCodes()
