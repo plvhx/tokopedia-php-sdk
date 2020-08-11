@@ -132,6 +132,13 @@ class Order extends AbstractService
 		);
 	}
 
+	/**
+	 * Get single order.
+	 *
+	 * @param int $orderID Order ID
+	 * @param string $invoiceNo Invoice number.
+	 * @return string
+	 */
 	public function getSingleOrder(int $orderID, string $invoiceNo = '')
 	{
 		$this->setEndpoint(
