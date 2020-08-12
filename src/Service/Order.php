@@ -322,6 +322,12 @@ class Order extends AbstractService
 		return;
 	}
 
+	/**
+	 * Validate order reject status code.
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException When order reject status code is invalid.
+	 */
 	private function validateOrderRejectStatusCode(int $status)
 	{
 		if (!in_array($status, $this->getAggregatedOrderRejectStatusCodes(), true)) {
