@@ -214,6 +214,13 @@ class Order extends AbstractService
 		return $this->getHttpClient()->request('POST', $this->getEndpoint());
 	}
 
+	/**
+	 * Reject order.
+	 *
+	 * @param int $orderID Order ID.
+	 * @param array $data
+	 * @return string
+	 */
 	public function rejectOrder(int $orderID, array $data)
 	{
 		$this->setEndpoint(
