@@ -286,6 +286,11 @@ class Order extends AbstractService
 		];
 	}
 
+	/**
+	 * Get aggregated order reject status codes.
+	 *
+	 * @return array
+	 */
 	private function getAggregatedOrderRejectStatusCodes()
 	{
 		return [
@@ -300,11 +305,28 @@ class Order extends AbstractService
 		];
 	}
 
+	/**
+	 * Validate order status code.
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException When order status code is invalid.
+	 */
 	private function validateOrderStatusCode(int $status)
 	{
 		if (!in_array($status, $this->getAggregatedOrderStatusCodes(), true)) {
 			throw new InvalidArgumentException(
 				"Invalid order status code."
+			);
+		}
+
+		return;
+	}
+
+	private function validateOrderRejectStatusCode(int $status)
+	{
+		if (!in_array($status, $this->getAggregatedOrderRejectStatusCodes(), true)) {
+			throw new InvalidArgumentException(
+				"Invalid order reject status code."
 			);
 		}
 
