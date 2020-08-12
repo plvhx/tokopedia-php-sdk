@@ -6,6 +6,8 @@ namespace Gandung\Tokopedia\Service;
 
 use Gandung\Tokopedia\AbstractService;
 
+use function http_build_query;
+
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
