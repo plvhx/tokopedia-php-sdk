@@ -195,6 +195,12 @@ class Order extends AbstractService
 		);
 	}
 
+	/**
+	 * Accept order.
+	 *
+	 * @param int $orderID Order ID.
+	 * @return string
+	 */
 	public function acceptOrder(int $orderID)
 	{
 		$this->setEndpoint(
