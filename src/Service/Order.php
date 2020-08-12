@@ -165,6 +165,13 @@ class Order extends AbstractService
 		);
 	}
 
+	/**
+	 * Get shipping label.
+	 *
+	 * @param int $orderID Order ID.
+	 * @param int $printed Whether want to print or not.
+	 * @return string
+	 */
 	public function getShippingLabel(int $orderID, int $printed = 0)
 	{
 		$this->setEndpoint(
