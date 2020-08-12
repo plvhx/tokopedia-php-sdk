@@ -234,6 +234,13 @@ class Order extends AbstractService
 		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
+	/**
+	 * Update order status.
+	 *
+	 * @param int $orderID Order ID.
+	 * @param array $data
+	 * @return string
+	 */
 	public function updateOrderStatus(int $orderID, array $data)
 	{
 		$this->setEndpoint(
@@ -247,6 +254,12 @@ class Order extends AbstractService
 		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
+	/**
+	 * Request pick up.
+	 *
+	 * @param array $data
+	 * @return string
+	 */
 	public function requestPickUp(array $data)
 	{
 		$this->setEndpoint(
@@ -259,6 +272,11 @@ class Order extends AbstractService
 		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
+	/**
+	 * Get aggregated order status codes.
+	 *
+	 * @return array
+	 */
 	private function getAggregatedOrderStatusCodes()
 	{
 		return [
