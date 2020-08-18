@@ -139,6 +139,36 @@ class Campaign extends AbstractService
 	}
 
 	/**
+	 * Update slash price for given shop ID.
+	 *
+	 * @param int $shopID Shop ID.
+	 * @param array $data
+	 * @return string
+	 */
+	public function updateSlashPrice(int $shopID, array $data)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/v1/slash-price/fs/%s/update',
+				$this->getFulfillmentServiceID()
+			)
+		);
+
+		$queryParams            = [];
+		$queryParams['shop_id'] = $shopID;
+
+		return $this->getHttpClient()->request(
+			'POST',
+			sprintf(
+				'%s?%s',
+				$this->getEndpoint(),
+				http_build_query($queryParams)
+			),
+			$data
+		);
+	}
+
+	/**
 	 * Validate slash price status.
 	 *
 	 * @param string $status Slash price status.
