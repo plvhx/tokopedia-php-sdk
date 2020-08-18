@@ -79,6 +79,36 @@ class Campaign extends AbstractService
 	}
 
 	/**
+	 * View campaign products.
+	 *
+	 * @param int $shopID Shop ID.
+	 * @param string $productID Product ID (can separated by comma).
+	 * @return string
+	 */
+	public function viewCampaignProducts(int $shopID, string $productID)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/v1/campaign/fs/%s/view',
+				$this->getFulfillmentServiceID()
+			)
+		);
+
+		$queryParams               = [];
+		$queryParams['shop_id']    = $shopID;
+		$queryParams['product_id'] = $productID;
+
+		return $this->getHttpClient()->request(
+			'GET',
+			sprintf(
+				'%s?%s',
+				$this->getEndpoint(),
+				http_build_query($queryParams)
+			)
+		);
+	}
+
+	/**
 	 * Validate slash price status.
 	 *
 	 * @param string $status Slash price status.
