@@ -471,5 +471,7 @@ class Product extends AbstractService
 			default:
 				throw new InvalidArgumentException("Invalid sort options.");
 		}
+
+		return;
 	}
 }
