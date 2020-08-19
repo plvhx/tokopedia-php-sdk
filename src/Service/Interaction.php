@@ -91,6 +91,60 @@ class Interaction extends AbstractService
 	}
 
 	/**
+	 * Get list of chat reply.
+	 *
+	 * @param int $messageID Message ID.
+	 * @param int $shopID Shop ID.
+	 * @param int $page Current page number.
+	 * @param int $perPage How much message showed per page.
+	 * @param string $order
+	 * @return string
+	 * @throws InvalidArgumentException When 'page' parameter less than or equal to zero.
+	 * @throws InvalidArgumentException When 'perPage' parameter less than or equal to zero.
+	 * @throws InvalidArgumentException When 'order' parameter is invalid.
+	 */
+	public function getListReply(
+		int $messageID,
+		int $shopID,
+		int $page = 1,
+		int $perPage = 10,
+		string $order = self::INTERACTION_MESSAGE_ORDER_ASC
+	) {
+		if ($page <= 0) {
+			throw new InvalidArgumentException("'page' parameter must be larger than zero.");
+		}
+
+		if ($perPage <= 0) {
+			throw new InvalidArgumentException("'perPage' parameter must be larger than zero.");
+		}
+
+		$this->validateMessageOrder($order);
+
+		$this->setEndpoint(
+			sprintf(
+				'/v1/chat/fs/%s/messages/%d/replies',
+				$this->getFulfillmentServiceID(),
+				$messageID
+			)
+		);
+
+		$queryParams             = [];
+		$queryParams['shop_id']  = $shopID;
+		$queryParams['page']     = $page;
+		$queryParams['per_page'] = $perPage;
+		$queryParams['order']    = $order;
+
+		return $this->getHttpClient()->request(
+			'GET',
+			sprintf(
+				'%s?%s',
+				$this->getEndpoint(),
+				http_build_query($queryParams)
+			)
+		);
+	}
+
+	/**
 	 * Validate given message order.
 	 *
 	 * @param string $order
