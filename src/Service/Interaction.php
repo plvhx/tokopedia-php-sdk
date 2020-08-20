@@ -7,6 +7,9 @@ namespace Gandung\Tokopedia\Service;
 use InvalidArgumentException;
 use Gandung\Tokopedia\AbstractService;
 
+/**
+ * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
+ */
 class Interaction extends AbstractService
 {
 	/**
