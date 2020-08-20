@@ -35,6 +35,26 @@ class Interaction extends AbstractService
 	const INTERACTION_MESSAGE_FILTER_UNREAD = "unread";
 
 	/**
+	 * @var int
+	 */
+	const INTERACTION_MESSAGE_NO_ATTACHMENT = 0;
+
+	/**
+	 * @var int
+	 */
+	const INTERACTION_MESSAGE_ATTACHMENT_IMAGE = 2;
+
+	/**
+	 * @var int
+	 */
+	const INTERACTION_MESSAGE_ATTACHMENT_PDF = 17;
+
+	/**
+	 * @var int
+	 */
+	const INTERACTION_MESSAGE_ATTACHMENT_CUSTOM_QUOTATION = 19;
+
+	/**
 	 * Get list of chat message.
 	 *
 	 * @param int $shopID Shop ID.
@@ -204,6 +224,25 @@ class Interaction extends AbstractService
 			case self::INTERACTION_MESSAGE_FILTER_UNREAD:
 			default:
 				throw new InvalidArgumentException("Invalid message filter.");
+		}
+	}
+
+	/**
+	 * Validate given message attachment type.
+	 *
+	 * @param int $attachmentType
+	 * @return void
+	 * @throws InvalidArgumentException When 'filter' parameter is invalid.
+	 */
+	private function validateMessageAttachmentType(int $attachmentType)
+	{
+		switch ($attachmentType) {
+			case self::INTERACTION_MESSAGE_NO_ATTACHMENT:
+			case self::INTERACTION_MESSAGE_ATTACHMENT_IMAGE:
+			case self::INTERACTION_MESSAGE_ATTACHMENT_PDF:
+			case self::INTERACTION_MESSAGE_ATTACHMENT_CUSTOM_QUOTATION:
+			default:
+				throw new InvalidArgumentException("Invalid message attachment type.");
 		}
 	}
 }
