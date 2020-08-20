@@ -145,6 +145,34 @@ class Interaction extends AbstractService
 	}
 
 	/**
+	 * Initiate chat with given order ID.
+	 *
+	 * @param int $orderID Order ID.
+	 * @return string
+	 */
+	public function initiateChat(int $orderID)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/v1/chat/fs/%s/initiate',
+				$this->getFulfillmentServiceID()
+			)
+		);
+
+		$queryParams             = [];
+		$queryParams['order_id'] = $orderID;
+
+		return $this->getHttpClient()->request(
+			'GET',
+			sprintf(
+				'%s?%s',
+				$this->getEndpoint(),
+				http_build_query($queryParams)
+			)
+		);
+	}
+
+	/**
 	 * Validate given message order.
 	 *
 	 * @param string $order
