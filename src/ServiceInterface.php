@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia;
 
+use Psr\Http\Client\ClientInterface;
+
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
@@ -83,4 +85,26 @@ interface ServiceInterface
 	 * @return void
 	 */
 	public function setEndpoint(string $endpoint);
+
+	/**
+	 * Get http client instance.
+	 *
+	 * @return ClientInterface
+	 */
+	public function getHttpClient();
+
+	/**
+	 * Set http client instance.
+	 *
+	 * @param ClientInterface $client
+	 * @return void
+	 */
+	public function setHttpClient(ClientInterface $client);
+
+	/**
+	 * Get base URL and given URI path as UriInterface instance.
+	 *
+	 * @return UriInterface
+	 */
+	public function getUri();
 }
