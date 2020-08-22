@@ -60,7 +60,7 @@ abstract class AbstractService
 	 * @param array $config Configuration array.
 	 * @return void
 	 */
-	public function initialize(array $config)
+	private function initialize(array $config)
 	{
 		$this->setBaseUrl($config['base_url'] === '' ? '' : $config['base_url']);
 		$this->setFulfillmentServiceID($config['fs_id'] === '' ? '' : $config['fs_id']);
@@ -74,9 +74,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get base URL.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getBaseUrl()
 	{
