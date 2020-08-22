@@ -68,4 +68,19 @@ interface ServiceInterface
 	 * @return void
 	 */
 	public function setClientSecret(string $clientSecret);
+
+	/**
+	 * Get URI path.
+	 *
+	 * @return string
+	 */
+	public function getEndpoint();
+
+	/**
+	 * Set URI path.
+	 *
+	 * @param string $endpoint
+	 * @return void
+	 */
+	public function setEndpoint(string $endpoint);
 }
