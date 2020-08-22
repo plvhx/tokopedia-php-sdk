@@ -196,6 +196,26 @@ class Interaction extends AbstractService
 	}
 
 	/**
+	 * Send reply.
+	 *
+	 * @param int $message ID.
+	 * @param array $data.
+	 * @return string
+	 */
+	public function sendReply(int $messageID, array $data)
+	{
+		$this->setEndpoint(
+			sprintf(
+				'/v1/chat/fs/%s/messages/%d/reply',
+				$this->getFulfillmentServiceID(),
+				$messageID
+			)
+		);
+
+		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
+	}
+
+	/**
 	 * Validate given message order.
 	 *
 	 * @param string $order
