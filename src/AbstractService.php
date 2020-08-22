@@ -90,9 +90,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get fulfillment service ID.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getFulfillmentServiceID()
 	{
