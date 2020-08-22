@@ -122,9 +122,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get client secret.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getClientSecret()
 	{
