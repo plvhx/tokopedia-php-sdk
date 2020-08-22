@@ -23,4 +23,11 @@ interface ServiceInterface
 	 * @return void
 	 */
 	public function setBaseUrl(string $baseUrl);
+
+	/**
+	 * Get fulfillment service ID.
+	 *
+	 * @return string
+	 */
+	public function getFulfillmentServiceID();
 }
