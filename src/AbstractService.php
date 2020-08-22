@@ -114,10 +114,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set client ID.
-	 *
-	 * @param string $clientID Client ID.
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setClientID(string $clientID)
 	{
