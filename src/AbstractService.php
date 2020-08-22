@@ -82,10 +82,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set base URL.
-	 *
-	 * @param string $baseUrl Base URL.
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setBaseUrl(string $baseUrl)
 	{
