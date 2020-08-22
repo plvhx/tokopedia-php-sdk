@@ -45,4 +45,12 @@ interface ServiceInterface
 	 * @return string
 	 */
 	public function getClientID();
+
+	/**
+	 * Set client ID.
+	 *
+	 * @param string $clientID
+	 * @return void
+	 */
+	public function setClientID(string $clientID);
 }
