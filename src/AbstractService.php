@@ -13,7 +13,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-abstract class AbstractService
+abstract class AbstractService implements ServiceInterface
 {
 	/**
 	 * @var UriInterface
