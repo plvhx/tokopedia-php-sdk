@@ -130,10 +130,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set client secret.
-	 *
-	 * @param string $clientSecret Client secret.
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setClientSecret(string $clientSecret)
 	{
