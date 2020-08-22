@@ -154,9 +154,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get http client instance.
-	 *
-	 * @return ClientInterface
+	 * {@inheritdoc}
 	 */
 	public function getHttpClient()
 	{
@@ -164,10 +162,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set http client instance.
-	 *
-	 * @param ClientInterface $client Http client instance.
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setHttpClient(ClientInterface $client)
 	{
@@ -175,9 +170,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get base URL and given URI path as UriInterface instance.
-	 *
-	 * @return UriInterface
+	 * {@inheritdoc}
 	 */
 	public function getUri()
 	{
