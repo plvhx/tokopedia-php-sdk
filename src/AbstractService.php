@@ -98,10 +98,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set fulfillment service ID.
-	 *
-	 * @param string $fulfillmentServiceID
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setFulfillmentServiceID(string $fulfillmentServiceID)
 	{
