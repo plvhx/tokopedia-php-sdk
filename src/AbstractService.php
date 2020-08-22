@@ -138,9 +138,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get URI path.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getEndpoint()
 	{
@@ -148,10 +146,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Set URL path.
-	 *
-	 * @param string $endpoint Endpoint URI.
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setEndpoint(string $endpoint)
 	{
