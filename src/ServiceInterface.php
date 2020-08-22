@@ -38,4 +38,11 @@ interface ServiceInterface
 	 * @return void
 	 */
 	public function setFulfillmentServiceID(string $fulfillmentServiceID);
+
+	/**
+	 * Get client ID.
+	 *
+	 * @return string
+	 */
+	public function getClientID();
 }
