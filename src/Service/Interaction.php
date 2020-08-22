@@ -196,7 +196,7 @@ class Interaction extends AbstractService
 	}
 
 	/**
-	 * Send reply.
+	 * Send message reply.
 	 *
 	 * @param int $message ID.
 	 * @param array $data.
