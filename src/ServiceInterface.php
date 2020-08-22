@@ -15,4 +15,12 @@ interface ServiceInterface
 	 * @return string
 	 */
 	public function getBaseUrl();
+
+	/**
+	 * Set base URL.
+	 *
+	 * @param string $baseUrl Base URL.
+	 * @return void
+	 */
+	public function setBaseUrl(string $baseUrl);
 }
