@@ -106,9 +106,7 @@ abstract class AbstractService
 	}
 
 	/**
-	 * Get client ID.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getClientID()
 	{
