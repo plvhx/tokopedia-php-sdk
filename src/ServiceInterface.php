@@ -60,4 +60,12 @@ interface ServiceInterface
 	 * @return string
 	 */
 	public function getClientSecret();
+
+	/**
+	 * Set client secret.
+	 *
+	 * @param string $clientSecret
+	 * @return void
+	 */
+	public function setClientSecret(string $clientSecret);
 }
