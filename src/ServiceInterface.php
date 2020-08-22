@@ -30,4 +30,12 @@ interface ServiceInterface
 	 * @return string
 	 */
 	public function getFulfillmentServiceID();
+
+	/**
+	 * Set fulfillment service ID.
+	 *
+	 * @param string $fulfillmentServiceID
+	 * @return void
+	 */
+	public function setFulfillmentServiceID(string $fulfillmentServiceID);
 }
