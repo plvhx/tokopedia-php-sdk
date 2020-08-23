@@ -224,15 +224,15 @@ class Order extends AbstractService
 	 */
 	public function updateOrderStatus(int $orderID, array $data)
 	{
-		$this->setEndpoint(
+		return $this->getHttpClient()->request(
+			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/status',
 				$orderID,
 				$this->getFulfillmentServiceID()
-			)
+			),
+			$data
 		);
-
-		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
 	/**
