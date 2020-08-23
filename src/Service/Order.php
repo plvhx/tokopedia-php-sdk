@@ -91,8 +91,6 @@ class Order extends AbstractService
 		int $warehouseID = 0,
 		int $status = 0
 	) {
-		$this->setEndpoint('/v2/order/list');
-
 		if ($page < 1) {
 			// throw something..
 		}
@@ -124,11 +122,7 @@ class Order extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('/v2/order/list?%s', http_build_query($queryParams))
 		);
 	}
 
