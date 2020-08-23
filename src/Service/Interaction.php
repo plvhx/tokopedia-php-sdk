@@ -89,11 +89,9 @@ class Interaction extends AbstractService
 		$this->validateMessageOrder($order);
 		$this->validateMessageFilter($filter);
 
-		$this->setEndpoint(
-			sprintf(
-				'/v1/chat/fs/%s/messages',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/chat/fs/%s/messages',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams             = [];
@@ -105,11 +103,7 @@ class Interaction extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
