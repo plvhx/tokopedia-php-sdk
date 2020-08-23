@@ -19,11 +19,9 @@ class Logistic extends AbstractService
 	 */
 	public function getShipmentInfo(int $shopID)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v2/logistic/fs/%s/info',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v2/logistic/fs/%s/info',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -31,11 +29,7 @@ class Logistic extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 }
