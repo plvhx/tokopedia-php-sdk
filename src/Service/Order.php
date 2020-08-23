@@ -204,15 +204,15 @@ class Order extends AbstractService
 	 */
 	public function rejectOrder(int $orderID, array $data)
 	{
-		$this->setEndpoint(
+		return $this->getHttpClient()->request(
+			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/nack',
 				$orderID,
 				$this->getFulfillmentServiceID()
-			)
+			),
+			$data
 		);
-
-		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
 	/**
