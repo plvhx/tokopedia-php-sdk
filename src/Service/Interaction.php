@@ -186,15 +186,13 @@ class Interaction extends AbstractService
 	 */
 	public function sendReply(int $messageID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/chat/fs/%s/messages/%d/reply',
-				$this->getFulfillmentServiceID(),
-				$messageID
-			)
+		$endpoint = sprintf(
+			'/v1/chat/fs/%s/messages/%d/reply',
+			$this->getFulfillmentServiceID(),
+			$messageID
 		);
 
-		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
+		return $this->getHttpClient()->request('POST', $endpoint, $data);
 	}
 
 	/**
