@@ -137,12 +137,10 @@ class Interaction extends AbstractService
 
 		$this->validateMessageOrder($order);
 
-		$this->setEndpoint(
-			sprintf(
-				'/v1/chat/fs/%s/messages/%d/replies',
-				$this->getFulfillmentServiceID(),
-				$messageID
-			)
+		$endpoint = sprintf(
+			'/v1/chat/fs/%s/messages/%d/replies',
+			$this->getFulfillmentServiceID(),
+			$messageID
 		);
 
 		$queryParams             = [];
@@ -153,11 +151,7 @@ class Interaction extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
@@ -169,11 +163,9 @@ class Interaction extends AbstractService
 	 */
 	public function initiateChat(int $orderID)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/chat/fs/%s/initiate',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/chat/fs/%s/initiate',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams             = [];
@@ -181,11 +173,7 @@ class Interaction extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
