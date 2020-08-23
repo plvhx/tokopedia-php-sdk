@@ -11,4 +11,5 @@ use Gandung\Tokopedia\ServiceInterface;
  */
 interface AuthorizationInterface extends ServiceInterface
 {
+	public function authorize();
 }
