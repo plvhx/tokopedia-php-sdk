@@ -55,11 +55,9 @@ class Campaign extends AbstractService
 			$this->validateSlashPriceStatus($status);
 		}
 
-		$this->setEndpoint(
-			sprintf(
-				'/v1/slash-price/fs/%s/view',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/slash-price/fs/%s/view',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams             = [];
@@ -70,11 +68,7 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
@@ -87,11 +81,9 @@ class Campaign extends AbstractService
 	 */
 	public function viewCampaignProducts(int $shopID, string $productID)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/campaign/fs/%s/view',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/campaign/fs/%s/view',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams               = [];
@@ -100,11 +92,7 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
@@ -117,11 +105,9 @@ class Campaign extends AbstractService
 	 */
 	public function addSlashPrice(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/slash-price/fs/%s/add',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/slash-price/fs/%s/add',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -129,11 +115,7 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
@@ -147,11 +129,9 @@ class Campaign extends AbstractService
 	 */
 	public function updateSlashPrice(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/slash-price/fs/%s/update',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/slash-price/fs/%s/update',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -159,11 +139,7 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
@@ -177,11 +153,9 @@ class Campaign extends AbstractService
 	 */
 	public function cancelSlashPrice(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/slash-price/fs/%s/cancel',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/slash-price/fs/%s/cancel',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -189,11 +163,7 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
