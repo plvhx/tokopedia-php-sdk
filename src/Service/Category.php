@@ -21,11 +21,9 @@ class Category extends AbstractService
 	 */
 	public function getAllCategories(string $keyword = '')
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/inventory/v1/fs/%s/product/category',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/inventory/v1/fs/%s/product/category',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams = [];
@@ -38,7 +36,7 @@ class Category extends AbstractService
 			'GET',
 			sprintf(
 				'%s%s',
-				$this->getEndpoint(),
+				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
 			)
 		);
