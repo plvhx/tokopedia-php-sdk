@@ -149,7 +149,7 @@ class Order extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $this->getEndpoint(), http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
