@@ -162,12 +162,10 @@ class Order extends AbstractService
 	 */
 	public function getShippingLabel(int $orderID, int $printed = 0)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/order/%d/fs/%s/shipping-label',
-				$orderID,
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/order/%d/fs/%s/shipping-label',
+			$orderID,
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -175,11 +173,7 @@ class Order extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
