@@ -135,11 +135,9 @@ class Order extends AbstractService
 	 */
 	public function getSingleOrder(int $orderID, string $invoiceNo = '')
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v2/fs/%s/order',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v2/fs/%s/order',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams             = [];
@@ -151,11 +149,7 @@ class Order extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $this->getEndpoint(), http_build_query($queryParams))
 		);
 	}
 
