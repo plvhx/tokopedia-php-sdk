@@ -178,11 +178,9 @@ class Product extends AbstractService
 	 */
 	public function getAllEtalase(int $shopID)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/inventory/v1/fs/%s/product/etalase',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/inventory/v1/fs/%s/product/etalase',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -190,11 +188,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
