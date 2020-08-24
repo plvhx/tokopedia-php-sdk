@@ -21,11 +21,9 @@ class Shop extends AbstractService
 	 */
 	public function getShopInfo(int $shopID = 0)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/shop/fs/%s/shop-info',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/shop/fs/%s/shop-info',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams = [];
@@ -38,7 +36,7 @@ class Shop extends AbstractService
 			'GET',
 			sprintf(
 				'%s%s',
-				$this->getEndpoint(),
+				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
 			)
 		);
