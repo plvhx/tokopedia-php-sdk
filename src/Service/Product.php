@@ -249,12 +249,10 @@ class Product extends AbstractService
 	 */
 	public function checkUploadStatus(int $shopID, int $uploadID)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v2/products/fs/%s/status/%d',
-				$this->getFulfillmentServiceID(),
-				$uploadID
-			)
+		$endpoint = sprintf(
+			'/v2/products/fs/%s/status/%d',
+			$this->getFulfillmentServiceID(),
+			$uploadID
 		);
 
 		$queryParams            = [];
@@ -262,11 +260,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
