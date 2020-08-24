@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Gandung\Tokopedia\Service;
 
 use InvalidArgumentException;
-use Gandung\Tokopedia\AbstractService;
 
 use function http_build_query;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Campaign extends AbstractService
+class Campaign extends Resource
 {
 	/**
 	 * @var string
@@ -55,10 +54,14 @@ class Campaign extends AbstractService
 			$this->validateSlashPriceStatus($status);
 		}
 
-		$endpoint = sprintf(
+		$credential  = $this->getAuthorization()->authorize();
+		$endpoint    = sprintf(
 			'/v1/slash-price/fs/%s/view',
 			$this->getFulfillmentServiceID()
 		);
+		$headers     = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -68,7 +71,8 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
@@ -81,10 +85,14 @@ class Campaign extends AbstractService
 	 */
 	public function viewCampaignProducts(int $shopID, string $productID)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/campaign/fs/%s/view',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams               = [];
 		$queryParams['shop_id']    = $shopID;
@@ -92,7 +100,8 @@ class Campaign extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
