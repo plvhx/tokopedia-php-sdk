@@ -112,11 +112,10 @@ class Product extends AbstractService
 	public function getProductInfoFromRelatedShopID(int $shopID, int $page, int $perPage, int $sort)
 	{
 		$this->validateSortOptions($sort);
-		$this->setEndpoint(
-			sprintf(
-				'/inventory/v1/fs/%s/product/info',
-				$this->getFulfillmentServiceID()
-			)
+
+		$endpoint = sprintf(
+			'/inventory/v1/fs/%s/product/info',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams             = [];
@@ -127,11 +126,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
