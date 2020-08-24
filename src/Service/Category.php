@@ -26,7 +26,7 @@ class Category extends Resource
 			'/inventory/v1/fs/%s/product/category',
 			$this->getFulfillmentServiceID()
 		);
-		$header     = [
+		$headers    = [
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
