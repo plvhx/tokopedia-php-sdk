@@ -6,6 +6,9 @@ namespace Gandung\Tokopedia\Service;
 
 use Gandung\Tokopedia\AbstractService;
 
+/**
+ * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
+ */
 class Resource extends AbstractService
 {
 	/**
