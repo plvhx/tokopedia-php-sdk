@@ -160,15 +160,14 @@ class Product extends AbstractService
 	 */
 	public function getAllVariantsByProductID(int $productID)
 	{
-		$this->setEndpoint(
+		return $this->getHttpClient()->request(
+			'GET',
 			sprintf(
 				'/inventory/v1/fs/%s/product/variant/%d',
 				$this->getFulfillmentServiceID(),
 				$productID
 			)
 		);
-
-		return $this->getHttpClient()->request('GET', $this->getEndpoint());
 	}
 
 	/**
