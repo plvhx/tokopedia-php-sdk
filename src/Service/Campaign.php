@@ -176,10 +176,14 @@ class Campaign extends Resource
 	 */
 	public function cancelSlashPrice(int $shopID, array $data)
 	{
+		$credential = $this->getAuthorization()->authorize();
 		$endpoint = sprintf(
 			'/v1/slash-price/fs/%s/cancel',
 			$this->getFulfillmentServiceID()
 		);
+		$headers = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
@@ -187,7 +191,10 @@ class Campaign extends Resource
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
