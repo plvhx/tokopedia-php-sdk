@@ -11,7 +11,7 @@ use function http_build_query;
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Category extends AbstractService
+class Category extends Resource
 {
 	/**
 	 * Get all categories.
@@ -21,10 +21,14 @@ class Category extends AbstractService
 	 */
 	public function getAllCategories(string $keyword = '')
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/inventory/v1/fs/%s/product/category',
 			$this->getFulfillmentServiceID()
 		);
+		$header     = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams = [];
 
@@ -38,7 +42,8 @@ class Category extends AbstractService
 				'%s%s',
 				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
-			)
+			),
+			['headers' => $headers]
 		);
 	}
 }
