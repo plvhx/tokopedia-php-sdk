@@ -56,7 +56,9 @@ class Authorization extends AbstractService implements AuthorizationInterface
 			$this->cachePool->save($cacheObject);
 		}
 
-		return $currentCredential;
+		return ($currentCredential instanceof Credential)
+			? $currentCredential
+			: new Credential($currentCredential);
 	}
 
 	/**
