@@ -11,5 +11,11 @@ use Gandung\Tokopedia\ServiceInterface;
  */
 interface AuthorizationInterface extends ServiceInterface
 {
+	/**
+	 * Get credential object instance by authorizing the
+	 * application.
+	 *
+	 * @return Credential
+	 */
 	public function authorize();
 }
