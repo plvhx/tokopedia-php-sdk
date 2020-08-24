@@ -50,13 +50,13 @@ class Shop extends AbstractService
 	 */
 	public function updateShopStatus(array $data)
 	{
-		$this->setEndpoint(
+		return $this->getHttpClient()->request(
+			'POST',
 			sprintf(
 				'/v2/shop/fs/%s/shop-status',
-				$this->getFulfillmentServiceID()				
-			)
+				$this->getFulfillmentServiceID()
+			),
+			$data
 		);
-
-		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 }
