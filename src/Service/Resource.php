@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Gandung\Tokopedia\Service;
 
 use Gandung\Tokopedia\AbstractService;
+use Gandung\Tokopedia\Auth\AuthorizationInterface;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Resource extends AbstractService
+abstract class Resource extends AbstractService
 {
 	/**
 	 * @var AuthorizationInterface
