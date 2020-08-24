@@ -20,8 +20,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 
 		$buf = $this->getHttpClient()->request(
 			'POST',
-			sprintf('%s?grant_type=client_credentials', $this->getEndpoint()),
-			[]
+			'/token?grant_type=client_credentials',
 		);
 
 		return new Credential($buf);
