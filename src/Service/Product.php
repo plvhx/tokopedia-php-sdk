@@ -201,11 +201,9 @@ class Product extends AbstractService
 	 */
 	public function createProducts(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v2/products/fs/%s/create',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v2/products/fs/%s/create',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -213,11 +211,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
