@@ -297,11 +297,9 @@ class Product extends AbstractService
 	 */
 	public function setInactiveProduct(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v1/products/fs/%s/inactive',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v1/products/fs/%s/inactive',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -309,11 +307,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
@@ -327,11 +321,9 @@ class Product extends AbstractService
 	 */
 	public function updatePriceOnly(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/inventory/v1/fs/%s/price/update',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/inventory/v1/fs/%s/price/update',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -339,11 +331,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
@@ -357,11 +345,9 @@ class Product extends AbstractService
 	 */
 	public function updateStockOnly(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/inventory/v1/fs/%s/stock/update',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/inventory/v1/fs/%s/stock/update',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -369,11 +355,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
@@ -387,11 +369,9 @@ class Product extends AbstractService
 	 */
 	public function deleteProduct(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v3/products/fs/%s/delete',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v3/products/fs/%s/delete',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -399,11 +379,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			)
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 	}
 
