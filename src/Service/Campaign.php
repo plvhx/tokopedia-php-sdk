@@ -177,11 +177,11 @@ class Campaign extends Resource
 	public function cancelSlashPrice(int $shopID, array $data)
 	{
 		$credential = $this->getAuthorization()->authorize();
-		$endpoint = sprintf(
+		$endpoint   = sprintf(
 			'/v1/slash-price/fs/%s/cancel',
 			$this->getFulfillmentServiceID()
 		);
-		$headers = [
+		$headers    = [
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
