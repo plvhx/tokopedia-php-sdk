@@ -225,11 +225,9 @@ class Product extends AbstractService
 	 */
 	public function editProduct(int $shopID, array $data)
 	{
-		$this->setEndpoint(
-			sprintf(
-				'/v2/products/fs/%s/edit',
-				$this->getFulfillmentServiceID()
-			)
+		$endpoint = sprintf(
+			'/v2/products/fs/%s/edit',
+			$this->getFulfillmentServiceID()
 		);
 
 		$queryParams            = [];
@@ -237,11 +235,7 @@ class Product extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'PATCH',
-			sprintf(
-				'%s?%s',
-				$this->getEndpoint(),
-				http_build_query($queryParams)
-			),
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 	}
