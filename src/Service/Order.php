@@ -243,14 +243,14 @@ class Order extends AbstractService
 	 */
 	public function requestPickUp(array $data)
 	{
-		$this->setEndpoint(
+		return $this->getHttpClient()->request(
+			'POST',
 			sprintf(
 				'/inventory/v1/fs/%s/pick-up',
 				$this->getFulfillmentServiceID()
-			)
+			),
+			$data
 		);
-
-		return $this->getHttpClient()->request('POST', $this->getEndpoint(), $data);
 	}
 
 	/**
