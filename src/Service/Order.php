@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Gandung\Tokopedia\Service;
 
 use InvalidArgumentException;
-use Gandung\Tokopedia\AbstractService;
+use RuntimeException;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Order extends AbstractService
+class Order extends Resource
 {
 	/**
 	 * @var int
@@ -78,8 +78,8 @@ class Order extends AbstractService
 	 * @param int $warehouseID Warehouse ID.
 	 * @param int $status Status.
 	 * @return string
-	 * @throws InvalidArgumentException When current page number less than 1.
-	 * @throws InvalidArgumentException When Shop ID and Warehouse ID both exists.
+	 * @throws InvalidArgumentException When current page number less than or equal to zero.
+	 * @throws RuntimeException When Shop ID and Warehouse ID both exists.
 	 * @throws InvalidArgumentException When status code is invalid.
 	 */
 	public function getAllOrders(
@@ -91,17 +91,26 @@ class Order extends AbstractService
 		int $warehouseID = 0,
 		int $status = 0
 	) {
-		if ($page < 1) {
-			// throw something..
+		if ($page <= 0) {
+			throw new InvalidArgumentException(
+				"Page number cannot be less than or equal to zero."
+			);
 		}
 
 		if ($shopID > 0 && $warehouseID > 0) {
-			// throw something..
+			throw new RuntimeException(
+				"Cannot set both shop ID and warehouse ID. Select one."
+			);	
 		}
 
 		if ($status !== 0) {
 			$this->validateOrderStatusCode($status);
 		}
+
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams              = [];
 		$queryParams['fs_id']     = $this->getFulfillmentServiceID();
@@ -122,7 +131,8 @@ class Order extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('/v2/order/list?%s', http_build_query($queryParams))
+			sprintf('/v2/order/list?%s', http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
