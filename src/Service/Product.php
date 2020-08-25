@@ -175,13 +175,19 @@ class Product extends Resource
 	 */
 	public function getAllVariantsByProductID(int $productID)
 	{
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
+
 		return $this->getHttpClient()->request(
 			'GET',
 			sprintf(
 				'/inventory/v1/fs/%s/product/variant/%d',
 				$this->getFulfillmentServiceID(),
 				$productID
-			)
+			),
+			['headers' => $headers]
 		);
 	}
 
