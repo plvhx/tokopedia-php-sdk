@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia\Service;
 
-use Gandung\Tokopedia\AbstractService;
+use InvalidArgumentException;
 
 use function http_build_query;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Product extends AbstractService
+class Product extends Resource
 {
 	/**
 	 * @var int
@@ -72,10 +72,14 @@ class Product extends AbstractService
 	 */
 	public function getProductInfo(int $productID = 0, string $productUrl = '')
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/inventory/v1/fs/%s/product/info',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams = [];
 
@@ -95,7 +99,8 @@ class Product extends AbstractService
 				'%s%s',
 				$endpoint,
 				empty($serializedQueryParams) ? '' : ('?' . $serializedQueryParams)
-			)
+			),
+			['headers' => $headers]
 		);
 	}
 
