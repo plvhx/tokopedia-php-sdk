@@ -118,10 +118,14 @@ class Product extends Resource
 	{
 		$this->validateSortOptions($sort);
 
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/inventory/v1/fs/%s/product/info',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -131,7 +135,8 @@ class Product extends Resource
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
