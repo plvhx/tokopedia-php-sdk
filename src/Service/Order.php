@@ -145,10 +145,14 @@ class Order extends Resource
 	 */
 	public function getSingleOrder(int $orderID, string $invoiceNo = '')
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v2/fs/%s/order',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['order_id'] = $orderID;
@@ -159,7 +163,8 @@ class Order extends Resource
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
