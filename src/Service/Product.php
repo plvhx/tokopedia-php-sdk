@@ -149,11 +149,11 @@ class Product extends Resource
 	public function getAllVariantsByCategoryID(int $categoryID)
 	{
 		$credential = $this->getAuthorization()->authorize();
-		$endpoint = sprintf(
+		$endpoint   = sprintf(
 			'/inventory/v1/fs/%s/category/get_variant',
 			$this->getFulfillmentServiceID()
 		);
-		$headers = [
+		$headers    = [
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
