@@ -201,13 +201,22 @@ class Interaction extends Resource
 	 */
 	public function sendReply(int $messageID, array $data)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/chat/fs/%s/messages/%d/reply',
 			$this->getFulfillmentServiceID(),
 			$messageID
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
-		return $this->getHttpClient()->request('POST', $endpoint, $data);
+		return $this->getHttpClient()->request(
+			'POST',
+			$endpoint,
+			$data,
+			['headers' => $headers]
+		);
 	}
 
 	/**
