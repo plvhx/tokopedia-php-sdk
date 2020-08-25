@@ -258,6 +258,11 @@ class Order extends Resource
 	 */
 	public function updateOrderStatus(int $orderID, array $data)
 	{
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
+
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf(
@@ -265,7 +270,10 @@ class Order extends Resource
 				$orderID,
 				$this->getFulfillmentServiceID()
 			),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
