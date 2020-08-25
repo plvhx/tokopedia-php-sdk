@@ -285,13 +285,21 @@ class Order extends Resource
 	 */
 	public function requestPickUp(array $data)
 	{
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
+
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/inventory/v1/fs/%s/pick-up',
 				$this->getFulfillmentServiceID()
 			),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
