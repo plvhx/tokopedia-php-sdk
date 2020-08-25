@@ -10,7 +10,7 @@ use Gandung\Tokopedia\AbstractService;
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Interaction extends AbstractService
+class Interaction extends Resource
 {
 	/**
 	 * @var string
@@ -89,10 +89,14 @@ class Interaction extends AbstractService
 		$this->validateMessageOrder($order);
 		$this->validateMessageFilter($filter);
 
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/chat/fs/%s/messages',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -103,7 +107,8 @@ class Interaction extends AbstractService
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
