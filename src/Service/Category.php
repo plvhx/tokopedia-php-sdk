@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia\Service;
 
-use Gandung\Tokopedia\AbstractService;
-
 use function http_build_query;
 
 /**
