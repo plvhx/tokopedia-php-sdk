@@ -142,11 +142,15 @@ class Interaction extends Resource
 
 		$this->validateMessageOrder($order);
 
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/chat/fs/%s/messages/%d/replies',
 			$this->getFulfillmentServiceID(),
 			$messageID
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -156,7 +160,8 @@ class Interaction extends Resource
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
