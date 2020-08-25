@@ -205,13 +205,19 @@ class Order extends Resource
 	 */
 	public function acceptOrder(int $orderID)
 	{
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
+
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/ack',
 				$orderID,
 				$this->getFulfillmentServiceID()
-			)
+			),
+			['headers' => $headers]
 		);
 	}
 
