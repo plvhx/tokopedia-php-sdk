@@ -214,7 +214,7 @@ class Product extends Resource
 		return $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $header]
+			['headers' => $headers]
 		);
 	}
 
@@ -227,10 +227,14 @@ class Product extends Resource
 	 */
 	public function createProducts(int $shopID, array $data)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v2/products/fs/%s/create',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
@@ -238,7 +242,10 @@ class Product extends Resource
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
