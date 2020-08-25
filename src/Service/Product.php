@@ -199,17 +199,22 @@ class Product extends Resource
 	 */
 	public function getAllEtalase(int $shopID)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/inventory/v1/fs/%s/product/etalase',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $header]
 		);
 	}
 
