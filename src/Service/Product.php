@@ -148,17 +148,22 @@ class Product extends Resource
 	 */
 	public function getAllVariantsByCategoryID(int $categoryID)
 	{
+		$credential = $this->getAuthorization()->authorize();
 		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/category/get_variant',
 			$this->getFulfillmentServiceID()
 		);
+		$headers = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams           = [];
 		$queryParams['cat_id'] = $categoryID;
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
