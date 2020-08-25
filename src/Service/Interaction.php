@@ -173,17 +173,22 @@ class Interaction extends Resource
 	 */
 	public function initiateChat(int $orderID)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/chat/fs/%s/initiate',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams             = [];
 		$queryParams['order_id'] = $orderID;
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
