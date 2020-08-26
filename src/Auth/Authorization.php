@@ -102,8 +102,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	private function fetchAuthorizationMetadata()
 	{
 		$headers = [
-			'Authorization' => sprintf('Basic %s', $this->getSerializedBasicCredential()),
-			'Content-Length' => 0
+			'Authorization' => sprintf('Basic %s', $this->getSerializedBasicCredential())
 		];
 
 		try {
@@ -112,7 +111,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 				'/token?grant_type=client_credentials',
 				[
 					'headers' => $headers,
-					'verify'  => true,
+					'verify'  => false,
 					'version' => 2
 				]
 			);
