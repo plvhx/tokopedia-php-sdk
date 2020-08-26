@@ -442,17 +442,22 @@ class Product extends Resource
 	 */
 	public function deleteProduct(int $shopID, array $data)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v3/products/fs/%s/delete',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
 		return $this->getHttpClient()->request(
 			'POST',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
