@@ -263,7 +263,7 @@ class Product extends Resource
 			'/v2/products/fs/%s/edit',
 			$this->getFulfillmentServiceID()
 		);
-		$header     = [
+		$headers    = [
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
@@ -289,18 +289,23 @@ class Product extends Resource
 	 */
 	public function checkUploadStatus(int $shopID, int $uploadID)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v2/products/fs/%s/status/%d',
 			$this->getFulfillmentServiceID(),
 			$uploadID
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
 		return $this->getHttpClient()->request(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+			['headers' => $headers]
 		);
 	}
 
