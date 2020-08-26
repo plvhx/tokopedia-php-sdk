@@ -29,6 +29,11 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	private $currentCredential;
 
 	/**
+	 * @var string
+	 */
+	private $cacheTag = 'authorization_metadata';
+
+	/**
 	 * @param CacheItemPoolInterface $cachePool
 	 * @param array $config
 	 * @return void
@@ -47,15 +52,12 @@ class Authorization extends AbstractService implements AuthorizationInterface
 		$currentCredential = $this->getCurrentCredentialFromCache();
 
 		if (null === $currentCredential) {
-			$currentCredential = json_decode($this->fetchAuthorizationMetadata(), true);
-			$cacheObject       = $this->getCachePool()->getItem('authorization_metadata');
-
-			// set cache item metadata.
-			$cacheObject->set($currentCredential);
-			$cacheObject->expiresAfter($currentCredential['expires_in']);
-
-			// persist cache item
-			$this->cachePool->save($cacheObject);
+			$this->putCurrentCredentialIntoCache(
+				json_decode(
+					$this->fetchAuthorizationMetadata(),
+					true
+				)
+			);
 		}
 
 		return ($currentCredential instanceof Credential)
@@ -80,17 +82,51 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function setCacheTag(string $cacheTag)
+	{
+		$this->cacheTag = $cacheTag;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getCacheTag()
+	{
+		return $this->cacheTag;
+	}
+
+	/**
 	 * Fetch current credential from cache pool, if any.
 	 *
 	 * @return null|CredentialInterface
 	 */
 	private function getCurrentCredentialFromCache()
 	{
-		$credential = $this->getCachePool()->getItem('authorization_metadata');
+		$credential = $this->getCachePool()->getItem($this->getCacheTag());
 
 		return false === $credential->isHit()
 			? null
 			: new Credential($credential->get());
+	}
+
+	/**
+	 * Save current credential into cache pool.
+	 *
+	 * @param array $credential
+	 * @return bool
+	 */
+	private function putCurrentCredentialIntoCache(array $credential)
+	{
+		$cacheObject = $this->getCachePool()->getItem($this->getCacheTag());
+
+		// set cache item metadata
+		$cacheObject->set($credential);
+		$cacheObject->expiresAfter($credential['expires_in']);
+
+		// persist cache item
+		return $this->getCachePool()->save($cacheObject);
 	}
 
 	/**
@@ -111,7 +147,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 				'/token?grant_type=client_credentials',
 				[
 					'headers' => $headers,
-					'verify'  => false,
+					'verify'  => true,
 					'version' => 2
 				]
 			);
