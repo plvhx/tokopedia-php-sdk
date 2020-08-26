@@ -26,7 +26,7 @@ abstract class AbstractService implements ServiceInterface
 	private $endpoint;
 
 	/**
-	 * @var string
+	 * @var int
 	 */
 	private $fulfillmentServiceID;
 
@@ -100,7 +100,7 @@ abstract class AbstractService implements ServiceInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setFulfillmentServiceID(string $fulfillmentServiceID)
+	public function setFulfillmentServiceID(int $fulfillmentServiceID)
 	{
 		$this->fulfillmentServiceID = $fulfillmentServiceID;
 	}
