@@ -258,10 +258,14 @@ class Product extends Resource
 	 */
 	public function editProduct(int $shopID, array $data)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v2/products/fs/%s/edit',
 			$this->getFulfillmentServiceID()
 		);
+		$header     = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
@@ -269,7 +273,10 @@ class Product extends Resource
 		return $this->getHttpClient()->request(
 			'PATCH',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
