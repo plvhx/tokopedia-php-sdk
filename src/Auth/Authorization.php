@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia\Auth;
 
+use RuntimeException;
 use Gandung\Tokopedia\AbstractService;
 use Gandung\Tokopedia\Credential\Credential;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Http\Client\RequestExceptionInterface;
 
 use function base64_encode;
 use function json_decode;
@@ -95,6 +97,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	 * Fetch authorization metadata from server.
 	 *
 	 * @return string
+	 * @throws RuntimeException When http exception occur.
 	 */
 	private function fetchAuthorizationMetadata()
 	{
@@ -103,16 +106,25 @@ class Authorization extends AbstractService implements AuthorizationInterface
 			'Content-Length' => 0
 		];
 
-		$buf = $this->getHttpClient()->request(
-			'POST',
-			'/token?grant_type=client_credentials',
-			[
-				'headers' => $headers,
-				'verify'  => true,
-			]
-		);
-
-		return $buf;
+		try {
+			return $this->getHttpClient()->request(
+				'POST',
+				'/token?grant_type=client_credentials',
+				[
+					'headers' => $headers,
+					'verify'  => true,
+					'version' => 2
+				]
+			);
+		} catch (RequestExceptionInterface $e) {
+			throw new RuntimeException(
+				sprintf(
+					"Caught a http exception. Code: %d, Reason: %s",
+					$e->getResponse()->getStatusCode(),
+					$e->getResponse()->getReasonPhrase()
+				)
+			);
+		}
 	}
 
 	/**
