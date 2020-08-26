@@ -106,7 +106,10 @@ class Authorization extends AbstractService implements AuthorizationInterface
 		$buf = $this->getHttpClient()->request(
 			'POST',
 			'/token?grant_type=client_credentials',
-			['headers' => $headers]
+			[
+				'headers' => $headers,
+				'verify'  => true,
+			]
 		);
 
 		return $buf;
