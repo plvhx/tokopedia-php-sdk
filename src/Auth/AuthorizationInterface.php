@@ -34,4 +34,19 @@ interface AuthorizationInterface extends ServiceInterface
 	 * @return CacheItemPoolInterface
 	 */
 	public function getCachePool();
+
+	/**
+	 * Set cache tag.
+	 *
+	 * @param string $cacheTag
+	 * @return void
+	 */
+	public function setCacheTag(string $cacheTag);
+
+	/**
+	 * Get cache tag
+	 *
+	 * @return string
+	 */
+	public function getCacheTag();
 }
