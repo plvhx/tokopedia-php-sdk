@@ -29,7 +29,7 @@ interface ServiceInterface
 	/**
 	 * Get fulfillment service ID.
 	 *
-	 * @return string
+	 * @return int
 	 */
 	public function getFulfillmentServiceID();
 
@@ -39,7 +39,7 @@ interface ServiceInterface
 	 * @param string $fulfillmentServiceID
 	 * @return void
 	 */
-	public function setFulfillmentServiceID(string $fulfillmentServiceID);
+	public function setFulfillmentServiceID(int $fulfillmentServiceID);
 
 	/**
 	 * Get client ID.
