@@ -457,7 +457,10 @@ class Product extends Resource
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 
