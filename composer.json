@@ -25,6 +25,7 @@
 	},
 	"require": {
 		"php": "^7.1",
-		"guzzlehttp/guzzle": "^7.0"
+		"guzzlehttp/guzzle": "^7.0",
+		"psr/cache": "^1.0"
 	}
 }
