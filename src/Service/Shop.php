@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia\Service;
 
-use Gandung\Tokopedia\AbstractService;
-
 use function http_build_query;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class Shop extends AbstractService
+class Shop extends Resource
 {
 	/**
 	 * Get shop info.
@@ -21,10 +19,14 @@ class Shop extends AbstractService
 	 */
 	public function getShopInfo(int $shopID = 0)
 	{
-		$endpoint = sprintf(
+		$credential = $this->getAuthorization()->authorize();
+		$endpoint   = sprintf(
 			'/v1/shop/fs/%s/shop-info',
 			$this->getFulfillmentServiceID()
 		);
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
 
 		$queryParams = [];
 
@@ -38,7 +40,8 @@ class Shop extends AbstractService
 				'%s%s',
 				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
-			)
+			),
+			['headers' => $headers]
 		);
 	}
 
@@ -50,13 +53,21 @@ class Shop extends AbstractService
 	 */
 	public function updateShopStatus(array $data)
 	{
+		$credential = $this->getAuthorization()->authorize();
+		$headers    = [
+			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		];
+
 		return $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v2/shop/fs/%s/shop-status',
 				$this->getFulfillmentServiceID()
 			),
-			$data
+			[
+				'headers' => $headers,
+				'json'    => $data
+			]
 		);
 	}
 }
