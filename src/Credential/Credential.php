@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Gandung\Tokopedia\Credential;
 
+use InvalidArgumentException;
+
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
@@ -95,7 +97,10 @@ final class Credential implements CredentialInterface
 	{
 		return [
 			'access_token',
+			'event_code',
 			'expires_in',
+			'last_login_type',
+			'sq_check',
 			'token_type'
 		];
 	}
