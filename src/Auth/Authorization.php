@@ -52,12 +52,8 @@ class Authorization extends AbstractService implements AuthorizationInterface
 		$currentCredential = $this->getCurrentCredentialFromCache();
 
 		if (null === $currentCredential) {
-			$this->putCurrentCredentialIntoCache(
-				json_decode(
-					$this->fetchAuthorizationMetadata(),
-					true
-				)
-			);
+			$currentCredential = json_decode($this->fetchAuthorizationMetadata(), true);
+			$this->putCurrentCredentialIntoCache($currentCredential);
 		}
 
 		return ($currentCredential instanceof Credential)
@@ -138,19 +134,21 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	private function fetchAuthorizationMetadata()
 	{
 		$headers = [
-			'Authorization' => sprintf('Basic %s', $this->getSerializedBasicCredential())
+			'Authorization' => sprintf('Basic %s', $this->getSerializedBasicCredential()),
+			'User-Agent'    => 'insomnia/2020.3.3'
 		];
 
 		try {
-			return $this->getHttpClient()->request(
+			$response = $this->getHttpClient()->request(
 				'POST',
 				'/token?grant_type=client_credentials',
 				[
 					'headers' => $headers,
-					'verify'  => true,
-					'version' => 2
+					'verify'  => true
 				]
 			);
+
+			return $response->getBody()->getContents();
 		} catch (RequestExceptionInterface $e) {
 			throw new RuntimeException(
 				sprintf(
