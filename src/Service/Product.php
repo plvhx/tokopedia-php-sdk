@@ -91,17 +91,18 @@ class Product extends Resource
 			$queryParams['product_url'] = $productUrl;
 		}
 
-		$serializedQueryParams = http_build_query($queryParams);
-						
-		return $this->getHttpClient()->request(
+		$serialized = http_build_query($queryParams);	
+		$response   = $this->getHttpClient()->request(
 			'GET',
 			sprintf(
 				'%s%s',
 				$endpoint,
-				empty($serializedQueryParams) ? '' : ('?' . $serializedQueryParams)
+				empty($serialized) ? '' : ('?' . $serialized)
 			),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
