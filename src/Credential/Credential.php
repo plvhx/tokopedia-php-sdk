@@ -60,6 +60,14 @@ final class Credential implements CredentialInterface
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getData()
+	{
+		return $this->data;
+	}
+
+	/**
 	 * Validate required fields in credential metadata.
 	 *
 	 * @param array $data
