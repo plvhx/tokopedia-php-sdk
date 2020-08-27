@@ -104,11 +104,13 @@ class Interaction extends Resource
 		$queryParams['order']    = $order;
 		$queryParams['filter']   = $filter;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -157,11 +159,13 @@ class Interaction extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['order']    = $order;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -184,11 +188,13 @@ class Interaction extends Resource
 		$queryParams             = [];
 		$queryParams['order_id'] = $orderID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -210,12 +216,14 @@ class Interaction extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			$endpoint,
 			$data,
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
