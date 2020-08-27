@@ -29,10 +29,12 @@ class Logistic extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 }
