@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -175,5 +176,13 @@ abstract class AbstractService implements ServiceInterface
 	public function getUri()
 	{
 		return (new Uri($this->getBaseUrl()))->withPath($this->getEndpoint());
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getContents(ResponseInterface $response)
+	{
+		return $response->getBody()->getContents();
 	}
 }
