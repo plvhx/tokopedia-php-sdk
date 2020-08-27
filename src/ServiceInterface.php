@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gandung\Tokopedia;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -107,4 +108,12 @@ interface ServiceInterface
 	 * @return UriInterface
 	 */
 	public function getUri();
+
+	/**
+	 * Get contents from a response object.
+	 *
+	 * @param ResponseInterface $response
+	 * @return string
+	 */
+	public function getContents(ResponseInterface $response);
 }
