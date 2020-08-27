@@ -29,4 +29,11 @@ interface CredentialInterface
 	 * @return string
 	 */
 	public function getTokenType();
+
+	/**
+	 * Get authorization metadata.
+	 *
+	 * @return array
+	 */
+	public function getData();
 }
