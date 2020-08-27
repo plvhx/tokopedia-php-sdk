@@ -34,7 +34,7 @@ class Category extends Resource
 			$queryParams['keyword'] = $keyword;
 		}
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf(
 				'%s%s',
@@ -43,5 +43,7 @@ class Category extends Resource
 			),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 }
