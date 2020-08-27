@@ -134,11 +134,13 @@ class Product extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['sort']     = $sort;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -161,11 +163,13 @@ class Product extends Resource
 		$queryParams           = [];
 		$queryParams['cat_id'] = $categoryID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -181,7 +185,7 @@ class Product extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf(
 				'/inventory/v1/fs/%s/product/variant/%d',
@@ -190,6 +194,8 @@ class Product extends Resource
 			),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -212,11 +218,13 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -240,7 +248,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -248,6 +256,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -271,7 +281,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'PATCH',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -279,6 +289,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -303,11 +315,13 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -331,7 +345,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -339,6 +353,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -362,7 +378,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -370,6 +386,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -393,7 +411,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -401,6 +419,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -424,7 +444,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -432,6 +452,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -455,7 +477,7 @@ class Product extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -463,6 +485,8 @@ class Product extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
