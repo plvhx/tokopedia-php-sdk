@@ -129,11 +129,13 @@ class Order extends Resource
 
 		$queryParams['status'] = $status;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('/v2/order/list?%s', http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -161,11 +163,13 @@ class Order extends Resource
 			$queryParams['invoice_num'] = $invoiceNo;
 		}
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -190,11 +194,13 @@ class Order extends Resource
 		$queryParams            = [];
 		$queryParams['printed'] = $printed;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -210,7 +216,7 @@ class Order extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/ack',
@@ -219,6 +225,8 @@ class Order extends Resource
 			),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -235,7 +243,7 @@ class Order extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/nack',
@@ -247,6 +255,8 @@ class Order extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -263,7 +273,7 @@ class Order extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/status',
@@ -275,6 +285,8 @@ class Order extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -290,7 +302,7 @@ class Order extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/inventory/v1/fs/%s/pick-up',
@@ -301,6 +313,8 @@ class Order extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
