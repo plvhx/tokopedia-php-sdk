@@ -27,7 +27,8 @@
 		"php": "^7.1",
 		"guzzlehttp/guzzle": "^7.0",
 		"psr/cache": "^1.0",
-		"psr/http-client": "^1.0"
+		"psr/http-client": "^1.0",
+		"psr/http-message": "^1.0"
 	},
 	"require-dev": {
 		"cache/cache": "^1.0"
