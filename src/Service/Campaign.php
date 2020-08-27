@@ -69,11 +69,13 @@ class Campaign extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['status']   = $status;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -98,11 +100,13 @@ class Campaign extends Resource
 		$queryParams['shop_id']    = $shopID;
 		$queryParams['product_id'] = $productID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -126,7 +130,7 @@ class Campaign extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -134,6 +138,8 @@ class Campaign extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -157,7 +163,7 @@ class Campaign extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$repsonse = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -165,6 +171,8 @@ class Campaign extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -188,7 +196,7 @@ class Campaign extends Resource
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			[
@@ -196,6 +204,8 @@ class Campaign extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
