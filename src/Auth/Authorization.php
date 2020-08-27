@@ -52,13 +52,11 @@ class Authorization extends AbstractService implements AuthorizationInterface
 		$currentCredential = $this->getCurrentCredentialFromCache();
 
 		if (null === $currentCredential) {
-			$currentCredential = json_decode($this->fetchAuthorizationMetadata(), true);
-			$this->putCurrentCredentialIntoCache($currentCredential);
+			$currentCredential = $this->getCredentialFromServer();
+			$this->putCurrentCredentialIntoCache($currentCredential->getData());
 		}
 
-		return ($currentCredential instanceof Credential)
-			? $currentCredential
-			: new Credential($currentCredential);
+		return $currentCredential;
 	}
 
 	/**
@@ -126,12 +124,12 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	}
 
 	/**
-	 * Fetch authorization metadata from server.
+	 * Fetch credential from server.
 	 *
 	 * @return string
 	 * @throws RuntimeException When http exception occur.
 	 */
-	private function fetchAuthorizationMetadata()
+	private function getCredentialFromServer()
 	{
 		$headers = [
 			'Authorization' => sprintf('Basic %s', $this->getSerializedBasicCredential()),
@@ -148,7 +146,12 @@ class Authorization extends AbstractService implements AuthorizationInterface
 				]
 			);
 
-			return $response->getBody()->getContents();
+			return new Credential(
+				json_decode(
+					$response->getBody()->getContents(),
+					true
+				),
+			);
 		} catch (RequestExceptionInterface $e) {
 			throw new RuntimeException(
 				sprintf(
