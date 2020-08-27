@@ -34,7 +34,7 @@ class Shop extends Resource
 			$queryParams['shop_id'] = $shopID;
 		}
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'GET',
 			sprintf(
 				'%s%s',
@@ -43,6 +43,8 @@ class Shop extends Resource
 			),
 			['headers' => $headers]
 		);
+
+		return $this->getContents($response);
 	}
 
 	/**
@@ -58,7 +60,7 @@ class Shop extends Resource
 			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
 		];
 
-		return $this->getHttpClient()->request(
+		$response = $this->getHttpClient()->request(
 			'POST',
 			sprintf(
 				'/v2/shop/fs/%s/shop-status',
@@ -69,5 +71,7 @@ class Shop extends Resource
 				'json'    => $data
 			]
 		);
+
+		return $this->getContents($response);
 	}
 }
