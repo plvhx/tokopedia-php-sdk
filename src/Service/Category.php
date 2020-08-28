@@ -19,14 +19,10 @@ class Category extends Resource
 	 */
 	public function getAllCategories(string $keyword = '')
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/product/category',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams = [];
 
@@ -34,14 +30,13 @@ class Category extends Resource
 			$queryParams['keyword'] = $keyword;
 		}
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
 			sprintf(
 				'%s%s',
 				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
 			),
-			['headers' => $headers]
 		);
 
 		return $this->getContents($response);
