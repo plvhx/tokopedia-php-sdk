@@ -25,6 +25,10 @@ final class ServiceFactory implements ServiceFactoryInterface
 	 */
 	private $authorization;
 
+	/**
+	 * @param AuthorizationInterface $authorization
+	 * @return void
+	 */
 	public function __construct(AuthorizationInterface $authorization)
 	{
 		$this->setAuthorization($authorization);
