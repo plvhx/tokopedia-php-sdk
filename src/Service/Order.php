@@ -107,17 +107,13 @@ class Order extends Resource
 			$this->validateOrderStatusCode($status);
 		}
 
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+		$queryParams = [
+			'fs_id'     => $this->getFulfillmentServiceID(),
+			'from_date' => $fromDate,
+			'to_date'   => $toDate,
+			'page'      => $page,
+			'per_page'  => $perPage
 		];
-
-		$queryParams              = [];
-		$queryParams['fs_id']     = $this->getFulfillmentServiceID();
-		$queryParams['from_date'] = $fromDate;
-		$queryParams['to_date']   = $toDate;
-		$queryParams['page']      = $page;
-		$queryParams['per_page']  = $perPage;
 
 		if ($shopID !== 0) {
 			$queryParams['shop_id'] = $shopID;	
@@ -129,10 +125,9 @@ class Order extends Resource
 
 		$queryParams['status'] = $status;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('/v2/order/list?%s', http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('/v2/order/list?%s', http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -147,26 +142,22 @@ class Order extends Resource
 	 */
 	public function getSingleOrder(int $orderID, string $invoiceNo = '')
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v2/fs/%s/order',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
-		$queryParams             = [];
-		$queryParams['order_id'] = $orderID;
+		$queryParams = [
+			'order_id' => $orderID
+		];
 
 		if ($invoiceNo !== '') {
 			$queryParams['invoice_num'] = $invoiceNo;
 		}
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -181,23 +172,19 @@ class Order extends Resource
 	 */
 	public function getShippingLabel(int $orderID, int $printed = 0)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/order/%d/fs/%s/shipping-label',
 			$orderID,
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
+
+		$queryParams = [
+			'printed' => $printed
 		];
 
-		$queryParams            = [];
-		$queryParams['printed'] = $printed;
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -211,19 +198,13 @@ class Order extends Resource
 	 */
 	public function acceptOrder(int $orderID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/ack',
 				$orderID,
 				$this->getFulfillmentServiceID()
-			),
-			['headers' => $headers]
+			)
 		);
 
 		return $this->getContents($response);
@@ -238,22 +219,14 @@ class Order extends Resource
 	 */
 	public function rejectOrder(int $orderID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/nack',
 				$orderID,
 				$this->getFulfillmentServiceID()
 			),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -268,22 +241,14 @@ class Order extends Resource
 	 */
 	public function updateOrderStatus(int $orderID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf(
 				'/v1/order/%d/fs/%s/status',
 				$orderID,
 				$this->getFulfillmentServiceID()
 			),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -297,21 +262,13 @@ class Order extends Resource
 	 */
 	public function requestPickUp(array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf(
 				'/inventory/v1/fs/%s/pick-up',
 				$this->getFulfillmentServiceID()
 			),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
