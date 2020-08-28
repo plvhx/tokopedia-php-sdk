@@ -10,14 +10,6 @@ namespace Gandung\Tokopedia;
 interface ServiceFactoryInterface
 {
 	/**
-	 * Get associated service based on given type.
-	 *
-	 * @param int $type
-	 * @return ServiceInterface
-	 */
-	public function get(int $type);
-
-	/**
 	 * Get campaign service.
 	 *
 	 * @return ServiceInterface
