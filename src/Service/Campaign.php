@@ -54,14 +54,10 @@ class Campaign extends Resource
 			$this->validateSlashPriceStatus($status);
 		}
 
-		$credential  = $this->getAuthorization()->authorize();
-		$endpoint    = sprintf(
+		$endpoint = sprintf(
 			'/v1/slash-price/fs/%s/view',
 			$this->getFulfillmentServiceID()
 		);
-		$headers     = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -69,10 +65,9 @@ class Campaign extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['status']   = $status;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
 		);
 
 		return $this->getContents($response);
@@ -87,23 +82,18 @@ class Campaign extends Resource
 	 */
 	public function viewCampaignProducts(int $shopID, string $productID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/campaign/fs/%s/view',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams               = [];
 		$queryParams['shop_id']    = $shopID;
 		$queryParams['product_id'] = $productID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
 		);
 
 		return $this->getContents($response);
@@ -118,25 +108,18 @@ class Campaign extends Resource
 	 */
 	public function addSlashPrice(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/slash-price/fs/%s/add',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -151,25 +134,18 @@ class Campaign extends Resource
 	 */
 	public function updateSlashPrice(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/slash-price/fs/%s/update',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$repsonse = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -184,25 +160,18 @@ class Campaign extends Resource
 	 */
 	public function cancelSlashPrice(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/slash-price/fs/%s/cancel',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
