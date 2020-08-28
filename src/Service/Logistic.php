@@ -17,22 +17,17 @@ class Logistic extends Resource
 	 */
 	public function getShipmentInfo(int $shopID)
 	{
-		$credential = $this->getAuthorization()->authorize();
 		$endpoint   = sprintf(
 			'/v2/logistic/fs/%s/info',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
