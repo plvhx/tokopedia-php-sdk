@@ -148,7 +148,7 @@ class Authorization extends AbstractService implements AuthorizationInterface
 
 			return new Credential(
 				json_decode(
-					$response->getBody()->getContents(),
+					$this->getContents($response),
 					true
 				),
 			);
@@ -171,5 +171,13 @@ class Authorization extends AbstractService implements AuthorizationInterface
 	private function getSerializedBasicCredential()
 	{
 		return base64_encode(sprintf('%s:%s', $this->getClientID(), $this->getClientSecret()));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getDefaultBaseUrl()
+	{
+		return 'https://accounts.tokopedia.com';
 	}
 }
