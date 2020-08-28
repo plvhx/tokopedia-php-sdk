@@ -88,14 +88,10 @@ class Interaction extends Resource
 		$this->validateMessageOrder($order);
 		$this->validateMessageFilter($filter);
 
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/chat/fs/%s/messages',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -104,10 +100,9 @@ class Interaction extends Resource
 		$queryParams['order']    = $order;
 		$queryParams['filter']   = $filter;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -143,15 +138,11 @@ class Interaction extends Resource
 
 		$this->validateMessageOrder($order);
 
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/chat/fs/%s/messages/%d/replies',
 			$this->getFulfillmentServiceID(),
 			$messageID
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -159,10 +150,9 @@ class Interaction extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['order']    = $order;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -176,22 +166,17 @@ class Interaction extends Resource
 	 */
 	public function initiateChat(int $orderID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/chat/fs/%s/initiate',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams             = [];
 		$queryParams['order_id'] = $orderID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -206,22 +191,13 @@ class Interaction extends Resource
 	 */
 	public function sendReply(int $messageID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
 		$endpoint   = sprintf(
 			'/v1/chat/fs/%s/messages/%d/reply',
 			$this->getFulfillmentServiceID(),
 			$messageID
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
-		$response = $this->getHttpClient()->request(
-			'POST',
-			$endpoint,
-			$data,
-			['headers' => $headers]
-		);
+		$response = $this->call('POST', $endpoint, $data);
 
 		return $this->getContents($response);
 	}
