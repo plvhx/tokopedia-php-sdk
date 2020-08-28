@@ -324,7 +324,7 @@ class Product extends Resource
 
 		$response = $this->call(
 			'POST',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
 			$data
 		);
 
