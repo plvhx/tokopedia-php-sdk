@@ -72,14 +72,10 @@ class Product extends Resource
 	 */
 	public function getProductInfo(int $productID = 0, string $productUrl = '')
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/product/info',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams = [];
 
@@ -92,14 +88,13 @@ class Product extends Resource
 		}
 
 		$serialized = http_build_query($queryParams);	
-		$response   = $this->getHttpClient()->request(
+		$response   = $this->call(
 			'GET',
 			sprintf(
 				'%s%s',
 				$endpoint,
 				empty($serialized) ? '' : ('?' . $serialized)
-			),
-			['headers' => $headers]
+			)
 		);
 
 		return $this->getContents($response);
@@ -119,14 +114,10 @@ class Product extends Resource
 	{
 		$this->validateSortOptions($sort);
 
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/product/info',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams             = [];
 		$queryParams['shop_id']  = $shopID;
@@ -134,10 +125,9 @@ class Product extends Resource
 		$queryParams['per_page'] = $perPage;
 		$queryParams['sort']     = $sort;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -151,22 +141,17 @@ class Product extends Resource
 	 */
 	public function getAllVariantsByCategoryID(int $categoryID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/category/get_variant',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams           = [];
 		$queryParams['cat_id'] = $categoryID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -180,19 +165,13 @@ class Product extends Resource
 	 */
 	public function getAllVariantsByProductID(int $productID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
 			sprintf(
 				'/inventory/v1/fs/%s/product/variant/%d',
 				$this->getFulfillmentServiceID(),
 				$productID
-			),
-			['headers' => $headers]
+			)
 		);
 
 		return $this->getContents($response);
@@ -206,22 +185,17 @@ class Product extends Resource
 	 */
 	public function getAllEtalase(int $shopID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/product/etalase',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -236,25 +210,18 @@ class Product extends Resource
 	 */
 	public function createProducts(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v2/products/fs/%s/create',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -269,25 +236,18 @@ class Product extends Resource
 	 */
 	public function editProduct(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v2/products/fs/%s/edit',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'PATCH',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -302,23 +262,18 @@ class Product extends Resource
 	 */
 	public function checkUploadStatus(int $shopID, int $uploadID)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v2/products/fs/%s/status/%d',
 			$this->getFulfillmentServiceID(),
 			$uploadID
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			['headers' => $headers]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
 		);
 
 		return $this->getContents($response);
@@ -333,25 +288,18 @@ class Product extends Resource
 	 */
 	public function setActiveProduct(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/products/fs/%s/active',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -366,25 +314,18 @@ class Product extends Resource
 	 */
 	public function setInactiveProduct(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/products/fs/%s/inactive',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
-			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+			$data
 		);
 
 		return $this->getContents($response);
@@ -399,25 +340,18 @@ class Product extends Resource
 	 */
 	public function updatePriceOnly(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/price/update',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -432,25 +366,18 @@ class Product extends Resource
 	 */
 	public function updateStockOnly(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/inventory/v1/fs/%s/stock/update',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
@@ -465,25 +392,18 @@ class Product extends Resource
 	 */
 	public function deleteProduct(int $shopID, array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v3/products/fs/%s/delete',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams            = [];
 		$queryParams['shop_id'] = $shopID;
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
