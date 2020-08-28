@@ -63,15 +63,52 @@ abstract class AbstractService implements ServiceInterface
 	 */
 	private function initialize(array $config)
 	{
-		$this->setBaseUrl($config['base_url'] === '' ? '' : $config['base_url']);
-		$this->setFulfillmentServiceID($config['fs_id'] === '' ? '' : $config['fs_id']);
-		$this->setClientID($config['client_id'] === '' ? '' : $config['client_id']);
-		$this->setClientSecret($config['client_secret'] === '' ? '' : $config['client_secret']);
+		$this->setBaseUrl(
+			$this->validateAndReturnDefaultValue(
+				$config,
+				'base_url',
+				$this->getDefaultBaseUrl()
+			)
+		);
+
+		$this->setFulfillmentServiceID(
+			$this->validateAndReturnDefaultValue(
+				$config,
+				'fs_id',
+				0
+			)
+		);
+
+		$this->setClientID(
+			$this->validateAndReturnDefaultValue(
+				$config,
+				'client_id',
+				''
+			)
+		);
+
+		$this->setClientSecret(
+			$this->validateAndReturnDefaultValue(
+				$config,
+				'client_secret',
+				''
+			)
+		);
+
 		$this->setHttpClient(
 			new Client([
 				'base_uri' => $this->getBaseUrl()
 			])
 		);
+	}
+
+	private function validateAndReturnDefaultValue(array $data, string $key, $default)
+	{
+		if (!empty($data[$key]) || isset($data[$key])) {
+			return $data[$key];
+		}
+
+		return $default;
 	}
 
 	/**
@@ -185,4 +222,11 @@ abstract class AbstractService implements ServiceInterface
 	{
 		return $response->getBody()->getContents();
 	}
+
+	/**
+	 * Get default base url if not provided.
+	 *
+	 * @return string
+	 */
+	abstract protected function getDefaultBaseUrl();
 }
