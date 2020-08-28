@@ -19,14 +19,10 @@ class Shop extends Resource
 	 */
 	public function getShopInfo(int $shopID = 0)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$endpoint   = sprintf(
+		$endpoint = sprintf(
 			'/v1/shop/fs/%s/shop-info',
 			$this->getFulfillmentServiceID()
 		);
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
 
 		$queryParams = [];
 
@@ -34,14 +30,13 @@ class Shop extends Resource
 			$queryParams['shop_id'] = $shopID;
 		}
 
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'GET',
 			sprintf(
 				'%s%s',
 				$endpoint,
 				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
-			),
-			['headers' => $headers]
+			)
 		);
 
 		return $this->getContents($response);
@@ -55,21 +50,13 @@ class Shop extends Resource
 	 */
 	public function updateShopStatus(array $data)
 	{
-		$credential = $this->getAuthorization()->authorize();
-		$headers    = [
-			'Authorization' => sprintf("Bearer %s", $credential->getAccessToken())
-		];
-
-		$response = $this->getHttpClient()->request(
+		$response = $this->call(
 			'POST',
 			sprintf(
 				'/v2/shop/fs/%s/shop-status',
 				$this->getFulfillmentServiceID()
 			),
-			[
-				'headers' => $headers,
-				'json'    => $data
-			]
+			$data
 		);
 
 		return $this->getContents($response);
