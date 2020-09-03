@@ -102,6 +102,14 @@ abstract class AbstractService implements ServiceInterface
 		);
 	}
 
+	/**
+	 * Validate and return default value.
+	 *
+	 * @param array $data
+	 * @param string $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	private function validateAndReturnDefaultValue(array $data, string $key, $default)
 	{
 		if (!empty($data[$key]) || isset($data[$key])) {
