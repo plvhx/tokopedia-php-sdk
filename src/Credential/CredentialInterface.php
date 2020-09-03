@@ -9,31 +9,31 @@ namespace Gandung\Tokopedia\Credential;
  */
 interface CredentialInterface
 {
-	/**
-	 * Get access token.
-	 *
-	 * @return string
-	 */
-	public function getAccessToken();
+    /**
+     * Get access token.
+     *
+     * @return string
+     */
+    public function getAccessToken();
 
-	/**
-	 * Get expires in seconds.
-	 *
-	 * @return int
-	 */
-	public function getExpiresIn();
+    /**
+     * Get expires in seconds.
+     *
+     * @return int
+     */
+    public function getExpiresIn();
 
-	/**
-	 * Get access token type.
-	 *
-	 * @return string
-	 */
-	public function getTokenType();
+    /**
+     * Get access token type.
+     *
+     * @return string
+     */
+    public function getTokenType();
 
-	/**
-	 * Get authorization metadata.
-	 *
-	 * @return array
-	 */
-	public function getData();
+    /**
+     * Get authorization metadata.
+     *
+     * @return array
+     */
+    public function getData();
 }

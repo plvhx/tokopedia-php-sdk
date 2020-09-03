@@ -9,52 +9,52 @@ namespace Gandung\Tokopedia;
  */
 interface ServiceFactoryInterface
 {
-	/**
-	 * Get campaign service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getCampaign();
+    /**
+     * Get campaign service.
+     *
+     * @return ServiceInterface
+     */
+    public function getCampaign();
 
-	/**
-	 * Get category service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getCategory();
+    /**
+     * Get category service.
+     *
+     * @return ServiceInterface
+     */
+    public function getCategory();
 
-	/**
-	 * Get interaction service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getInteraction();
+    /**
+     * Get interaction service.
+     *
+     * @return ServiceInterface
+     */
+    public function getInteraction();
 
-	/**
-	 * Get logistic service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getLogistic();
+    /**
+     * Get logistic service.
+     *
+     * @return ServiceInterface
+     */
+    public function getLogistic();
 
-	/**
-	 * Get order service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getOrder();
+    /**
+     * Get order service.
+     *
+     * @return ServiceInterface
+     */
+    public function getOrder();
 
-	/**
-	 * Get product service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getProduct();
+    /**
+     * Get product service.
+     *
+     * @return ServiceInterface
+     */
+    public function getProduct();
 
-	/**
-	 * Get shop service.
-	 *
-	 * @return ServiceInterface
-	 */
-	public function getShop();
+    /**
+     * Get shop service.
+     *
+     * @return ServiceInterface
+     */
+    public function getShop();
 }

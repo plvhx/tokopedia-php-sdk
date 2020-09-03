@@ -18,75 +18,75 @@ use Gandung\Tokopedia\Service\Shop;
  */
 final class ServiceFactory implements ServiceFactoryInterface
 {
-	use ServiceFactoryTrait;
+    use ServiceFactoryTrait;
 
-	/**
-	 * @var AuthorizationInterface
-	 */
-	private $authorization;
+    /**
+     * @var AuthorizationInterface
+     */
+    private $authorization;
 
-	/**
-	 * @param AuthorizationInterface $authorization
-	 * @return void
-	 */
-	public function __construct(AuthorizationInterface $authorization)
-	{
-		$this->setAuthorization($authorization);
-	}
+    /**
+     * @param AuthorizationInterface $authorization
+     * @return void
+     */
+    public function __construct(AuthorizationInterface $authorization)
+    {
+        $this->setAuthorization($authorization);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCampaign()
-	{
-		return new Campaign($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCampaign()
+    {
+        return new Campaign($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getCategory()
-	{
-		return new Category($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getCategory()
+    {
+        return new Category($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getInteraction()
-	{
-		return new Interaction($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getInteraction()
+    {
+        return new Interaction($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLogistic()
-	{
-		return new Logistic($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getLogistic()
+    {
+        return new Logistic($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getOrder()
-	{
-		return new Order($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrder()
+    {
+        return new Order($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getProduct()
-	{
-		return new Product($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getProduct()
+    {
+        return new Product($this->getAuthorization());
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getShop()
-	{
-		return new Shop($this->getAuthorization());
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getShop()
+    {
+        return new Shop($this->getAuthorization());
+    }
 }

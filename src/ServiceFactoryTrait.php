@@ -11,24 +11,24 @@ use Gandung\Tokopedia\Auth\AuthorizationInterface;
  */
 trait ServiceFactoryTrait
 {
-	/**
-	 * Get authorization object.
-	 *
-	 * @return AuthorizationInterface
-	 */
-	private function getAuthorization()
-	{
-		return $this->authorization;
-	}
+    /**
+     * Get authorization object.
+     *
+     * @return AuthorizationInterface
+     */
+    private function getAuthorization()
+    {
+        return $this->authorization;
+    }
 
-	/**
-	 * Set authorization object.
-	 *
-	 * @param AuthorizationInterface $authorization
-	 * @return void
-	 */
-	private function setAuthorization(AuthorizationInterface $authorization)
-	{
-		$this->authorization = $authorization;
-	}
+    /**
+     * Set authorization object.
+     *
+     * @param AuthorizationInterface $authorization
+     * @return void
+     */
+    private function setAuthorization(AuthorizationInterface $authorization)
+    {
+        $this->authorization = $authorization;
+    }
 }

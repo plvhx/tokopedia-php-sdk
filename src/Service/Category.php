@@ -11,34 +11,34 @@ use function http_build_query;
  */
 class Category extends Resource
 {
-	/**
-	 * Get all categories.
-	 *
-	 * @param string $keyword Product keyword.
-	 * @return string
-	 */
-	public function getAllCategories(string $keyword = '')
-	{
-		$endpoint = sprintf(
-			'/inventory/v1/fs/%s/product/category',
-			$this->getFulfillmentServiceID()
-		);
+    /**
+     * Get all categories.
+     *
+     * @param string $keyword Product keyword.
+     * @return string
+     */
+    public function getAllCategories(string $keyword = '')
+    {
+        $endpoint = sprintf(
+            '/inventory/v1/fs/%s/product/category',
+            $this->getFulfillmentServiceID()
+        );
 
-		$queryParams = [];
+        $queryParams = [];
 
-		if ('' !== $keyword) {
-			$queryParams['keyword'] = $keyword;
-		}
+        if ('' !== $keyword) {
+            $queryParams['keyword'] = $keyword;
+        }
 
-		$response = $this->call(
-			'GET',
-			sprintf(
-				'%s%s',
-				$endpoint,
-				sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
-			),
-		);
+        $response = $this->call(
+            'GET',
+            sprintf(
+                '%s%s',
+                $endpoint,
+                sizeof($queryParams) === 0 ? '' : '?' . http_build_query($queryParams)
+            ),
+        );
 
-		return $this->getContents($response);
-	}
+        return $this->getContents($response);
+    }
 }

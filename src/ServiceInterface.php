@@ -12,108 +12,108 @@ use Psr\Http\Message\ResponseInterface;
  */
 interface ServiceInterface
 {
-	/**
-	 * Get base URL.
-	 *
-	 * @return string
-	 */
-	public function getBaseUrl();
+    /**
+     * Get base URL.
+     *
+     * @return string
+     */
+    public function getBaseUrl();
 
-	/**
-	 * Set base URL.
-	 *
-	 * @param string $baseUrl Base URL.
-	 * @return void
-	 */
-	public function setBaseUrl(string $baseUrl);
+    /**
+     * Set base URL.
+     *
+     * @param string $baseUrl Base URL.
+     * @return void
+     */
+    public function setBaseUrl(string $baseUrl);
 
-	/**
-	 * Get fulfillment service ID.
-	 *
-	 * @return int
-	 */
-	public function getFulfillmentServiceID();
+    /**
+     * Get fulfillment service ID.
+     *
+     * @return int
+     */
+    public function getFulfillmentServiceID();
 
-	/**
-	 * Set fulfillment service ID.
-	 *
-	 * @param string $fulfillmentServiceID
-	 * @return void
-	 */
-	public function setFulfillmentServiceID(int $fulfillmentServiceID);
+    /**
+     * Set fulfillment service ID.
+     *
+     * @param string $fulfillmentServiceID
+     * @return void
+     */
+    public function setFulfillmentServiceID(int $fulfillmentServiceID);
 
-	/**
-	 * Get client ID.
-	 *
-	 * @return string
-	 */
-	public function getClientID();
+    /**
+     * Get client ID.
+     *
+     * @return string
+     */
+    public function getClientID();
 
-	/**
-	 * Set client ID.
-	 *
-	 * @param string $clientID
-	 * @return void
-	 */
-	public function setClientID(string $clientID);
+    /**
+     * Set client ID.
+     *
+     * @param string $clientID
+     * @return void
+     */
+    public function setClientID(string $clientID);
 
-	/**
-	 * Get client secret.
-	 *
-	 * @return string
-	 */
-	public function getClientSecret();
+    /**
+     * Get client secret.
+     *
+     * @return string
+     */
+    public function getClientSecret();
 
-	/**
-	 * Set client secret.
-	 *
-	 * @param string $clientSecret
-	 * @return void
-	 */
-	public function setClientSecret(string $clientSecret);
+    /**
+     * Set client secret.
+     *
+     * @param string $clientSecret
+     * @return void
+     */
+    public function setClientSecret(string $clientSecret);
 
-	/**
-	 * Get URI path.
-	 *
-	 * @return string
-	 */
-	public function getEndpoint();
+    /**
+     * Get URI path.
+     *
+     * @return string
+     */
+    public function getEndpoint();
 
-	/**
-	 * Set URI path.
-	 *
-	 * @param string $endpoint
-	 * @return void
-	 */
-	public function setEndpoint(string $endpoint);
+    /**
+     * Set URI path.
+     *
+     * @param string $endpoint
+     * @return void
+     */
+    public function setEndpoint(string $endpoint);
 
-	/**
-	 * Get http client instance.
-	 *
-	 * @return ClientInterface
-	 */
-	public function getHttpClient();
+    /**
+     * Get http client instance.
+     *
+     * @return ClientInterface
+     */
+    public function getHttpClient();
 
-	/**
-	 * Set http client instance.
-	 *
-	 * @param ClientInterface $client
-	 * @return void
-	 */
-	public function setHttpClient(ClientInterface $client);
+    /**
+     * Set http client instance.
+     *
+     * @param ClientInterface $client
+     * @return void
+     */
+    public function setHttpClient(ClientInterface $client);
 
-	/**
-	 * Get base URL and given URI path as UriInterface instance.
-	 *
-	 * @return UriInterface
-	 */
-	public function getUri();
+    /**
+     * Get base URL and given URI path as UriInterface instance.
+     *
+     * @return UriInterface
+     */
+    public function getUri();
 
-	/**
-	 * Get contents from a response object.
-	 *
-	 * @param ResponseInterface $response
-	 * @return string
-	 */
-	public function getContents(ResponseInterface $response);
+    /**
+     * Get contents from a response object.
+     *
+     * @param ResponseInterface $response
+     * @return string
+     */
+    public function getContents(ResponseInterface $response);
 }
