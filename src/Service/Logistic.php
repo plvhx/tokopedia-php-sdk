@@ -32,4 +32,29 @@ class Logistic extends Resource
 
 		return $this->getContents($response);
 	}
+
+	/**
+	 * Update shipment info.
+	 *
+	 * @param int $shopID
+	 * @param array $data
+	 * @return string
+	 */
+	public function updateShipmentInfo(int $shopID, array $data)
+	{
+		$endpoint = sprintf(
+			'/v2/logistic/fs/%s/update',
+			$this->getFulfillmentServiceID()
+		);
+
+		$queryParams            = [];
+		$queryParams['shop_id'] = $shopID;
+
+		$response = $this->call(
+			'GET',
+			sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+		);
+
+		return $this->getContents($response);
+	}
 }
