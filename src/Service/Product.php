@@ -426,6 +426,7 @@ class Product extends Resource
             case SORT_PRODUCT_NAME_DESCENDING:
             case SORT_FEWEST_STOCK:
             case SORT_HIGHEST_STOCK:
+                break;
             default:
                 throw new InvalidArgumentException("Invalid sort options.");
         }
