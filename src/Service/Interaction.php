@@ -214,6 +214,7 @@ class Interaction extends Resource
         switch ($order) {
             case self::INTERACTION_MESSAGE_ORDER_ASC:
             case self::INTERACTION_MESSAGE_ORDER_DESC:
+                break;
             default:
                 throw new InvalidArgumentException("Invalid message order.");
         }
@@ -232,6 +233,7 @@ class Interaction extends Resource
             case self::INTERACTION_MESSAGE_FILTER_ALL:
             case self::INTERACTION_MESSAGE_FILTER_READ:
             case self::INTERACTION_MESSAGE_FILTER_UNREAD:
+                break;
             default:
                 throw new InvalidArgumentException("Invalid message filter.");
         }
@@ -251,6 +253,7 @@ class Interaction extends Resource
             case self::INTERACTION_MESSAGE_ATTACHMENT_IMAGE:
             case self::INTERACTION_MESSAGE_ATTACHMENT_PDF:
             case self::INTERACTION_MESSAGE_ATTACHMENT_CUSTOM_QUOTATION:
+                break;
             default:
                 throw new InvalidArgumentException("Invalid message attachment type.");
         }
