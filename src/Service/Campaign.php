@@ -192,6 +192,7 @@ class Campaign extends Resource
             case SLASH_PRICE_INACTIVE:
             case SLASH_PRICE_COMING_SOON:
             case SLASH_PRICE_REDIRECTED:
+                break;
             default:
                 throw new InvalidArgumentException("Invalid slash price status.");
         }
