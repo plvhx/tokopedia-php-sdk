@@ -416,16 +416,16 @@ class Product extends Resource
     private function validateSortOptions(int $sort)
     {
         switch ($sort) {
-            case SORT_DEFAULT:
-            case SORT_LAST_UPDATE_PRODUCT:
-            case SORT_HIGHEST_SOLD:
-            case SORT_LOWEST_SOLD:
-            case SORT_HIGHEST_PRICE:
-            case SORT_LOWEST_PRICE:
-            case SORT_PRODUCT_NAME_ASCENDING:
-            case SORT_PRODUCT_NAME_DESCENDING:
-            case SORT_FEWEST_STOCK:
-            case SORT_HIGHEST_STOCK:
+            case self::SORT_DEFAULT:
+            case self::SORT_LAST_UPDATE_PRODUCT:
+            case self::SORT_HIGHEST_SOLD:
+            case self::SORT_LOWEST_SOLD:
+            case self::SORT_HIGHEST_PRICE:
+            case self::SORT_LOWEST_PRICE:
+            case self::SORT_PRODUCT_NAME_ASCENDING:
+            case self::SORT_PRODUCT_NAME_DESCENDING:
+            case self::SORT_FEWEST_STOCK:
+            case self::SORT_HIGHEST_STOCK:
                 break;
             default:
                 throw new InvalidArgumentException("Invalid sort options.");
