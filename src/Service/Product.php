@@ -101,6 +101,30 @@ class Product extends Resource
     }
 
     /**
+     * Get product info by SKU.
+     *
+     * @param string $sku Product SKU.
+     * @return string
+     */
+    public function getProductInfoBySKU(string $sku)
+    {
+        $endpoint = sprintf(
+            "/inventory/v1/fs/%s/product/info",
+            $this->getFulfillmentServiceID()
+        );
+
+        $queryParams = [];
+        $queryParams['sku'] = $sku;
+
+        $response = $this->call(
+            'GET',
+            sprintf("%s?%s", $endpoint, http_build_query($queryParams))
+        );
+
+        return $this->getContents($response);
+    }
+
+    /**
      * Get product info from related shop ID.
      *
      * @param int $shopID Shop ID.
