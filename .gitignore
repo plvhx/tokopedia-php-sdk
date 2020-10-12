@@ -2,3 +2,5 @@ tools/
 vendor/
 composer.lock
 phive.xml
+.phpunit.result.cache
+phpunit.xml.dist.bak
