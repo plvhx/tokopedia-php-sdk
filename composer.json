@@ -36,6 +36,7 @@
 		"psr/http-message": "^1.0"
 	},
 	"require-dev": {
-		"cache/cache": "^1.0"
+		"cache/cache": "^1.0",
+		"phpunit/phpunit": "^9.4@dev"
 	}
 }
