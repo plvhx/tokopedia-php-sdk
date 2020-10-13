@@ -10,6 +10,9 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
+use function file_get_contents;
+use function json_decode;
+
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
