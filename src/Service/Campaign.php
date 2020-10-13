@@ -187,11 +187,11 @@ class Campaign extends Resource
     private function validateSlashPriceStatus(string $status)
     {
         switch ($status) {
-            case SLASH_PRICE_ALL:
-            case SLASH_PRICE_ACTIVE:
-            case SLASH_PRICE_INACTIVE:
-            case SLASH_PRICE_COMING_SOON:
-            case SLASH_PRICE_REDIRECTED:
+            case self::SLASH_PRICE_ALL:
+            case self::SLASH_PRICE_ACTIVE:
+            case self::SLASH_PRICE_INACTIVE:
+            case self::SLASH_PRICE_COMING_SOON:
+            case self::SLASH_PRICE_REDIRECTED:
                 break;
             default:
                 throw new InvalidArgumentException("Invalid slash price status.");
