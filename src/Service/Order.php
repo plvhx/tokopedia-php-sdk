@@ -97,6 +97,12 @@ class Order extends Resource
             );
         }
 
+        if ($perPage <= 0) {
+            throw new InvalidArgumentException(
+                "Per page number cannot be less than or equal to zero."
+            );
+        }
+
         if ($shopID > 0 && $warehouseID > 0) {
             throw new RuntimeException(
                 "Cannot set both shop ID and warehouse ID. Select one."
