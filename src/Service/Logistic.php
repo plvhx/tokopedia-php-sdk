@@ -51,8 +51,9 @@ class Logistic extends Resource
         $queryParams['shop_id'] = $shopID;
 
         $response = $this->call(
-            'GET',
-            sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+            'POST',
+            sprintf('%s?%s', $endpoint, http_build_query($queryParams)),
+            $data
         );
 
         return $this->getContents($response);
