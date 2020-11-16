@@ -113,7 +113,7 @@ class Product extends Resource
             $this->getFulfillmentServiceID()
         );
 
-        $queryParams = [];
+        $queryParams        = [];
         $queryParams['sku'] = $sku;
 
         $response = $this->call(
@@ -134,8 +134,24 @@ class Product extends Resource
      * @return string
      * @throws InvalidArgumentException When given an invalid sort type.
      */
-    public function getProductInfoFromRelatedShopID(int $shopID, int $page, int $perPage, int $sort)
-    {
+    public function getProductInfoFromRelatedShopID(
+        int $shopID,
+        int $page,
+        int $perPage,
+        int $sort
+    ) {
+        if ($page <= 0) {
+            throw new InvalidArgumentException(
+                "Page number cannot be less or equal to zero."
+            );
+        }
+
+        if ($perPage <= 0) {
+            throw new InvalidArgumentException(
+                "Per page number cannot be less or equal to zero."
+            );
+        }
+
         $this->validateSortOptions($sort);
 
         $endpoint = sprintf(
