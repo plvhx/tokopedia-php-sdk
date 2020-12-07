@@ -19,133 +19,509 @@ use function json_decode;
  */
 class ProductTest extends TestCase
 {
-	use ServiceTestTrait;
+    use ServiceTestTrait;
 
-	public function testCanGetProductInfoWithSuccessResponse1()
-	{
-		$product     = new Product($this->getAuthorization());
-		$mockHandler = new MockHandler();
-		$httpClient  = new Client(['handler' => $mockHandler]);
-		$contents    = file_get_contents(
-			__DIR__ . '/../data-fixtures/product/get-product-info-ok-1.json'
-		);
+    public function testCanGetProductInfoWithSuccessResponse1()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-ok-1.json'
+        );
 
-		$mockHandler->append(new Response(
-			200,
-			['Content-Type' => 'application/json'],
-			$contents
-		));
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
 
-		$product->setHttpClient($httpClient);
+        $product->setHttpClient($httpClient);
 
-		$deserialized = json_decode($contents, true);
-		$response     = json_decode(
-			$product->getProductInfo(1337, "http://foo.bar/1337"),
-			true
-		);
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfo(1337, "http://foo.bar/1337"),
+            true
+        );
 
-		$this->assertEquals($deserialized, $response);
-	}
+        $this->assertEquals($deserialized, $response);
+    }
 
-	public function testCanGetProductInfoWithFailedResponse1()
-	{
-		$product     = new Product($this->getAuthorization());
-		$mockHandler = new MockHandler();
-		$httpClient  = new Client(['handler' => $mockHandler]);
-		$contents    = file_get_contents(
-			__DIR__ . '/../data-fixtures/product/get-product-info-fail-1.json'
-		);
+    public function testCanGetProductInfoWithFailedResponse1()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-fail-1.json'
+        );
 
-		$mockHandler->append(new Response(
-			400,
-			['Content-Type' => 'application/json'],
-			$contents
-		));
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
 
-		$product->setHttpClient($httpClient);
+        $product->setHttpClient($httpClient);
 
-		$deserialized = json_decode($contents, true);
-		$response     = json_decode(
-			$product->getProductInfo(1337, "http://foo.bar/1337"),
-			true
-		);
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfo(1337, "http://foo.bar/1337"),
+            true
+        );
 
-		$this->assertEquals($deserialized, $response);
-	}
+        $this->assertEquals($deserialized, $response);
+    }
 
-	public function testCanGetProductInfoWithSuccessResponse2()
-	{
-		$product     = new Product($this->getAuthorization());
-		$mockHandler = new MockHandler();
-		$httpClient  = new Client(['handler' => $mockHandler]);
-		$contents    = file_get_contents(
-			__DIR__ . '/../data-fixtures/product/get-product-info-ok-2.json'
-		);
+    public function testCanGetProductInfoWithSuccessResponse2()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-ok-2.json'
+        );
 
-		$mockHandler->append(new Response(
-			200,
-			['Content-Type' => 'application/json'],
-			$contents
-		));
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
 
-		$product->setHttpClient($httpClient);
+        $product->setHttpClient($httpClient);
 
-		$deserialized = json_decode($contents, true);
-		$response     = json_decode(
-			$product->getProductInfoBySKU("sdfsdf"),
-			true
-		);
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfoBySKU("sdfsdf"),
+            true
+        );
 
-		$this->assertEquals($deserialized, $response);
-	}
+        $this->assertEquals($deserialized, $response);
+    }
 
-	public function testCanGetProductInfoWithFailedResponse2()
-	{
-		$product     = new Product($this->getAuthorization());
-		$mockHandler = new MockHandler();
-		$httpClient  = new Client(['handler' => $mockHandler]);
-		$contents    = file_get_contents(
-			__DIR__ . '/../data-fixtures/product/get-product-info-fail-2.json'
-		);
+    public function testCanGetProductInfoWithFailedResponse2()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-fail-2.json'
+        );
 
-		$mockHandler->append(new Response(
-			400,
-			['Content-Type' => 'application/json'],
-			$contents
-		));
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
 
-		$product->setHttpClient($httpClient);
+        $product->setHttpClient($httpClient);
 
-		$deserialized = json_decode($contents, true);
-		$response     = json_decode(
-			$product->getProductInfoBySKU("sdfsdf"),
-			true
-		);
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfoBySKU("sdfsdf"),
+            true
+        );
 
-		$this->assertEquals($deserialized, $response);
-	}
+        $this->assertEquals($deserialized, $response);
+    }
 
-	public function testCanGetProductInfo3WillReturnExceptionWhenPageNumberIsInvalid()
-	{
-		$this->expectException(InvalidArgumentException::class);
+    public function testCanGetProductInfo3WillReturnExceptionWhenPageNumberIsInvalid()
+    {
+        $this->expectException(InvalidArgumentException::class);
 
-		$product = new Product($this->getAuthorization());
-		$product->getProductInfoFromRelatedShopID(1337, -1, 10, 2);
-	}
+        $product = new Product($this->getAuthorization());
+        $product->getProductInfoFromRelatedShopID(1337, -1, 10, 2);
+    }
 
-	public function testCanGetProductInfo3WillReturnExceptionWhenPerPageNumberIsInvalid()
-	{
-		$this->expectException(InvalidArgumentException::class);
+    public function testCanGetProductInfo3WillReturnExceptionWhenPerPageNumberIsInvalid()
+    {
+        $this->expectException(InvalidArgumentException::class);
 
-		$product = new Product($this->getAuthorization());
-		$product->getProductInfoFromRelatedShopID(1337, 1, -10, 2);
-	}
+        $product = new Product($this->getAuthorization());
+        $product->getProductInfoFromRelatedShopID(1337, 1, -10, 2);
+    }
 
-	public function testCanGetProductInfo3WillReturnExceptionWhenSortTypeIsInvalid()
-	{
-		$this->expectException(InvalidArgumentException::class);
+    public function testCanGetProductInfo3WillReturnExceptionWhenSortTypeIsInvalid()
+    {
+        $this->expectException(InvalidArgumentException::class);
 
-		$product = new Product($this->getAuthorization());
-		$product->getProductInfoFromRelatedShopID(1337, 1, 10, 1337);
-	}
+        $product = new Product($this->getAuthorization());
+        $product->getProductInfoFromRelatedShopID(1337, 1, 10, 1337);
+    }
+
+    public function testCanGetProductInfoWithSuccessResponse3()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-ok-3.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfoFromRelatedShopID(1337, 1, 10, 1),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetProductInfoWithFailedResponse3()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-product-info-fail-3.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getProductInfoFromRelatedShopID(1337, 1, 10, 1),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllVariantsByCategoryIDWithSuccessResponse()
+    {
+        $product = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient = new Client(['handler' => $mockHandler]);
+        $contents = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-variants-by-category-id-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllVariantsByCategoryID(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllVariantsByCategoryIDWithFailedResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-variants-by-category-id-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllVariantsByCategoryID(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllVariantsByProductIDWithSuccessResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-variants-by-product-id-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllVariantsByProductID(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllVariantsByProductIDWithFailedResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-variants-by-product-id-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllVariantsByProductID(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllEtalaseWithSuccessResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-etalase-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllEtalase(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetAllEtalaseWithFailedResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/get-all-etalase-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->getAllEtalase(31337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanCreateProductsWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/create-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/create-product-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->createProducts(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanCreateProductsWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/create-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/create-product-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->createProducts(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanEditProductWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/edit-product-request-data.json'
+        );
+        $contents = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/edit-product-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->editProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanEditProductWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/edit-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/edit-product-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->editProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanCheckUploadIDWithSuccessResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/check-upload-status-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->checkUploadStatus(31337, 1337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanCheckUploadIDWithFailedResponse()
+    {
+        $product     = new Product($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/check-upload-status-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->checkUploadStatus(31337, 1337),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
 }

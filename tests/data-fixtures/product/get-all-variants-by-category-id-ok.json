@@ -1,0 +1,1 @@
+{"header":{"process_time":0.755010807,"messages":"Your request has been processed successfully"},"data":[{"variant_id":6,"name":"Ukuran Pakaian","identifier":"size","status":1,"has_unit":1,"units":[{"unit_id":7,"name":"International","short_name":"Intl","values":[{"value_id":22,"value":"XXS","hex_code":"","icon":""},{"value_id":23,"value":"XS","hex_code":"","icon":""}]}]}]}

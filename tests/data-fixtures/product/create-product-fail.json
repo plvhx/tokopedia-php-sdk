@@ -1,0 +1,1 @@
+{"header":{"process_time":0.000126612,"messages":"We could not process your request due to malformed request, please check again","reason":"Invalid field [shop_id] format, value [] should be int","error_code":"PRD_DLV_042"},"data":null}
