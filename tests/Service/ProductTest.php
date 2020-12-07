@@ -524,4 +524,294 @@ class ProductTest extends TestCase
 
         $this->assertEquals($deserialized, $response);
     }
+
+    public function testCanSetActiveProductWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-active-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-active-product-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->setActiveProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanSetActiveProductWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-active-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-active-product-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->setActiveProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanSetInactiveProductWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-inactive-product-request-data.json'
+        );
+        $contents = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-inactive-product-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->setInactiveProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanSetInactiveProductWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-inactive-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/set-inactive-product-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->setInactiveProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanUpdatePriceOnlyWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-price-only-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-price-only-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->updatePriceOnly(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanUpdatePriceOnlyWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-price-only-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-price-only-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->updatePriceOnly(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanUpdateStockOnlyWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-stock-only-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-stock-only-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->updateStockOnly(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanUpdateStockOnlyWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-stock-only-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/update-stock-only-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->updateStockOnly(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanDeleteProductWithSuccessResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/delete-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/delete-product-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->deleteProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanDeleteProductWithFailedResponse()
+    {
+        $product        = new Product($this->getAuthorization());
+        $mockHandler    = new MockHandler();
+        $httpClient     = new Client(['handler' => $mockHandler]);
+        $requestPayload = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/delete-product-request-data.json'
+        );
+        $contents       = file_get_contents(
+            __DIR__ . '/../data-fixtures/product/delete-product-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $product->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode(
+            $product->deleteProduct(31337, json_decode($requestPayload, true)),
+            true
+        );
+
+        $this->assertEquals($deserialized, $response);
+    }
 }

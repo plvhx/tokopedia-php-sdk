@@ -1,0 +1,1 @@
+{"header":{"process_time":0.045122173,"messages":"Your request has been processed successfully"},"data":{"failed_rows":1,"failed_rows_data":[{"product_id":152460010,"sku":"SKU-MANDATORY-50CHH","product_url":"","new_price":10000,"message":"Invalid Product ID."}],"succeed_rows":0}}
