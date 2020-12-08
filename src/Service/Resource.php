@@ -8,6 +8,9 @@ use GuzzleHttp\Client;
 use Gandung\Tokopedia\AbstractService;
 use Gandung\Tokopedia\Auth\AuthorizationInterface;
 
+use function array_merge;
+use function sprintf;
+
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
@@ -83,16 +86,17 @@ abstract class Resource extends AbstractService
      * @param string $method
      * @param string $uri
      * @param array $data
+     * @param bool $isMultipart
      * @return ResponseInterface
      */
-    protected function call(string $method, string $uri, array $data = [])
+    protected function call(string $method, string $uri, array $data = [], bool $isMultipart = false)
     {
         $credential = $this->getAuthorization()->authorize();
         $headers    = ['Authorization' => sprintf('Bearer %s', $credential->getAccessToken())];
         $option     = ['headers' => $headers];
 
         if (!empty($data)) {
-            $option['json'] = $data;
+            $option = array_merge($option, !$isMultipart ? ['json' => $data] : ['multipart' => [$data]]);
         }
 
         return $this->getHttpClient()->request($method, $uri, $option);
