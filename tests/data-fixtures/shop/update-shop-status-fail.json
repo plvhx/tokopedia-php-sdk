@@ -1,0 +1,1 @@
+{"header":{"process_time":0.074516354,"messages":"Failed Update Shop Status","reason":"","error_code":500},"data":{"header":{"process_time":0.002333437,"Messages":["Tanggal mulai tutup tidak bisa kurang dari hari ini"],"reason":"Edit Failed","error_code":"400"},"data":""}}
