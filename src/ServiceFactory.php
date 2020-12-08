@@ -7,6 +7,7 @@ namespace Gandung\Tokopedia;
 use Gandung\Tokopedia\Auth\AuthorizationInterface;
 use Gandung\Tokopedia\Service\Campaign;
 use Gandung\Tokopedia\Service\Category;
+use Gandung\Tokopedia\Service\Encryption;
 use Gandung\Tokopedia\Service\Interaction;
 use Gandung\Tokopedia\Service\Logistic;
 use Gandung\Tokopedia\Service\Order;
@@ -48,6 +49,14 @@ final class ServiceFactory implements ServiceFactoryInterface
     public function getCategory()
     {
         return new Category($this->getAuthorization());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEncryption()
+    {
+        return new Encryption($this->getAuthorization());
     }
 
     /**

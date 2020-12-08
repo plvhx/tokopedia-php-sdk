@@ -24,6 +24,13 @@ interface ServiceFactoryInterface
     public function getCategory();
 
     /**
+     * Get encryption service.
+     *
+     * @return ServiceInterface
+     */
+    public function getEncryption();
+
+    /**
      * Get interaction service.
      *
      * @return ServiceInterface
