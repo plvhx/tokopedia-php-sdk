@@ -66,6 +66,52 @@ class LogisticTest extends TestCase
         $this->assertEquals($deserialized, $response);
     }
 
+    public function testCanGetJOBAndCODWithSuccessResponse()
+    {
+        $logistic    = new Logistic($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/logistic/get-job-and-cod-ok.json'
+        );
+
+        $mockHandler->append(new Response(
+            200,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $logistic->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode($logistic->getJOBAndCOD(1, 1, 1, 1, 1), true);
+
+        $this->assertEquals($deserialized, $response);
+    }
+
+    public function testCanGetJOBAndCODWithFailedResponse()
+    {
+        $logistic    = new Logistic($this->getAuthorization());
+        $mockHandler = new MockHandler();
+        $httpClient  = new Client(['handler' => $mockHandler]);
+        $contents    = file_get_contents(
+            __DIR__ . '/../data-fixtures/logistic/get-job-and-cod-fail.json'
+        );
+
+        $mockHandler->append(new Response(
+            400,
+            ['Content-Type' => 'application/json'],
+            $contents
+        ));
+
+        $logistic->setHttpClient($httpClient);
+
+        $deserialized = json_decode($contents, true);
+        $response     = json_decode($logistic->getJOBAndCOD(1, 1, 1, 1, 1), true);
+
+        $this->assertEquals($deserialized, $response);
+    }
+
     public function testCanUpdateShipmentInfoWithSuccessResponse()
     {
         $logistic    = new Logistic($this->getAuthorization());

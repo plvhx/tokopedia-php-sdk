@@ -17,7 +17,7 @@ class Logistic extends Resource
      */
     public function getShipmentInfo(int $shopID)
     {
-        $endpoint   = sprintf(
+        $endpoint = sprintf(
             '/v2/logistic/fs/%s/info',
             $this->getFulfillmentServiceID()
         );
@@ -28,6 +28,60 @@ class Logistic extends Resource
         $response = $this->call(
             'GET',
             sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+        );
+
+        return $this->getContents($response);
+    }
+
+    /**
+     * @param int $shopID
+     * @param int $firstOrderID
+     * @param int $nextOrderID
+     * @param int $orderID
+     * @param int $perPage
+     * @return string
+     */
+    public function getJOBAndCOD(
+        int $shopID = 0,
+        int $firstOrderID = 0,
+        int $nextOrderID = 0,
+        int $orderID = 0,
+        int $perPage = 0
+    ) {
+        $endpoint = sprintf(
+            '/v1/fs/%s/fulfillment_order',
+            $this->getFulfillmentServiceID()
+        );
+
+        $queryParams = [];
+
+        if ($shopID > 0) {
+            $queryParams['shop_id'] = $shopID;
+        }
+
+        if ($firstOrderID > 0) {
+            $queryParams['first_order_id'] = $firstOrderID;
+        }
+
+        if ($nextOrderID > 0) {
+            $queryParams['next_order_id'] = $nextOrderID;
+        }
+
+        if ($orderID > 0) {
+            $queryParams['order_id'] = $orderID;
+        }
+
+        if ($perPage > 0) {
+            $queryParams['per_page'] = $perPage;
+        }
+
+        $response = $this->call(
+            'GET',
+            sprintf(
+                "%s%s",
+                $endpoint,
+                !sizeof($queryParams) ? '' : '?' . http_build_query($queryParams)
+            )
         );
 
         return $this->getContents($response);
