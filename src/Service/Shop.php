@@ -20,7 +20,7 @@ class Shop extends Resource
     public function getShopInfo(int $shopID = 0)
     {
         $endpoint = sprintf(
-            '/v1/shop/fs/%s/shop-info',
+            '/v1/shop/fs/%d/shop-info',
             $this->getFulfillmentServiceID()
         );
 
@@ -53,7 +53,7 @@ class Shop extends Resource
         $response = $this->call(
             'POST',
             sprintf(
-                '/v2/shop/fs/%s/shop-status',
+                '/v2/shop/fs/%d/shop-status',
                 $this->getFulfillmentServiceID()
             ),
             $data

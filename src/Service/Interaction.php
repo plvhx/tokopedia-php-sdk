@@ -89,7 +89,7 @@ class Interaction extends Resource
         $this->validateMessageFilter($filter);
 
         $endpoint = sprintf(
-            '/v1/chat/fs/%s/messages',
+            '/v1/chat/fs/%d/messages',
             $this->getFulfillmentServiceID()
         );
 
@@ -139,7 +139,7 @@ class Interaction extends Resource
         $this->validateMessageOrder($order);
 
         $endpoint = sprintf(
-            '/v1/chat/fs/%s/messages/%d/replies',
+            '/v1/chat/fs/%d/messages/%d/replies',
             $this->getFulfillmentServiceID(),
             $messageID
         );
@@ -167,7 +167,7 @@ class Interaction extends Resource
     public function initiateChat(int $orderID)
     {
         $endpoint = sprintf(
-            '/v1/chat/fs/%s/initiate',
+            '/v1/chat/fs/%d/initiate',
             $this->getFulfillmentServiceID()
         );
 
@@ -192,7 +192,7 @@ class Interaction extends Resource
     public function sendReply(int $messageID, array $data)
     {
         $endpoint   = sprintf(
-            '/v1/chat/fs/%s/messages/%d/reply',
+            '/v1/chat/fs/%d/messages/%d/reply',
             $this->getFulfillmentServiceID(),
             $messageID
         );

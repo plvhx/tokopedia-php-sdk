@@ -18,7 +18,7 @@ class Logistic extends Resource
     public function getShipmentInfo(int $shopID)
     {
         $endpoint = sprintf(
-            '/v2/logistic/fs/%s/info',
+            '/v2/logistic/fs/%d/info',
             $this->getFulfillmentServiceID()
         );
 
@@ -49,7 +49,7 @@ class Logistic extends Resource
         int $perPage = 0
     ) {
         $endpoint = sprintf(
-            '/v1/fs/%s/fulfillment_order',
+            '/v1/fs/%d/fulfillment_order',
             $this->getFulfillmentServiceID()
         );
 
@@ -97,7 +97,7 @@ class Logistic extends Resource
     public function updateShipmentInfo(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v2/logistic/fs/%s/update',
+            '/v2/logistic/fs/%d/update',
             $this->getFulfillmentServiceID()
         );
 

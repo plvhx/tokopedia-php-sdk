@@ -55,7 +55,7 @@ class Campaign extends Resource
         }
 
         $endpoint = sprintf(
-            '/v1/slash-price/fs/%s/view',
+            '/v1/slash-price/fs/%d/view',
             $this->getFulfillmentServiceID()
         );
 
@@ -83,7 +83,7 @@ class Campaign extends Resource
     public function viewCampaignProducts(int $shopID, string $productID)
     {
         $endpoint = sprintf(
-            '/v1/campaign/fs/%s/view',
+            '/v1/campaign/fs/%d/view',
             $this->getFulfillmentServiceID()
         );
 
@@ -109,7 +109,7 @@ class Campaign extends Resource
     public function addSlashPrice(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v1/slash-price/fs/%s/add',
+            '/v1/slash-price/fs/%d/add',
             $this->getFulfillmentServiceID()
         );
 
@@ -135,7 +135,7 @@ class Campaign extends Resource
     public function updateSlashPrice(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v1/slash-price/fs/%s/update',
+            '/v1/slash-price/fs/%d/update',
             $this->getFulfillmentServiceID()
         );
 
@@ -161,7 +161,7 @@ class Campaign extends Resource
     public function cancelSlashPrice(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v1/slash-price/fs/%s/cancel',
+            '/v1/slash-price/fs/%d/cancel',
             $this->getFulfillmentServiceID()
         );
 

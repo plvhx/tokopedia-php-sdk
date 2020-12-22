@@ -35,7 +35,7 @@ class Encryption extends Resource
         clearstatcache();
 
         $endpoint = sprintf(
-            '/v1/fs/%s/register',
+            '/v1/fs/%d/register',
             $this->getFulfillmentServiceID()
         );
 

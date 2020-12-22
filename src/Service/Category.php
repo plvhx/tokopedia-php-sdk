@@ -20,7 +20,7 @@ class Category extends Resource
     public function getAllCategories(string $keyword = '')
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/product/category',
+            '/inventory/v1/fs/%d/product/category',
             $this->getFulfillmentServiceID()
         );
 

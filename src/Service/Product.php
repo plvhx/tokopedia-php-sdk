@@ -73,7 +73,7 @@ class Product extends Resource
     public function getProductInfo(int $productID = 0, string $productUrl = '')
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/product/info',
+            '/inventory/v1/fs/%d/product/info',
             $this->getFulfillmentServiceID()
         );
 
@@ -109,7 +109,7 @@ class Product extends Resource
     public function getProductInfoBySKU(string $sku)
     {
         $endpoint = sprintf(
-            "/inventory/v1/fs/%s/product/info",
+            "/inventory/v1/fs/%d/product/info",
             $this->getFulfillmentServiceID()
         );
 
@@ -155,7 +155,7 @@ class Product extends Resource
         $this->validateSortOptions($sort);
 
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/product/info',
+            '/inventory/v1/fs/%d/product/info',
             $this->getFulfillmentServiceID()
         );
 
@@ -182,7 +182,7 @@ class Product extends Resource
     public function getAllVariantsByCategoryID(int $categoryID)
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/category/get_variant',
+            '/inventory/v1/fs/%d/category/get_variant',
             $this->getFulfillmentServiceID()
         );
 
@@ -208,7 +208,7 @@ class Product extends Resource
         $response = $this->call(
             'GET',
             sprintf(
-                '/inventory/v1/fs/%s/product/variant/%d',
+                '/inventory/v1/fs/%d/product/variant/%d',
                 $this->getFulfillmentServiceID(),
                 $productID
             )
@@ -226,7 +226,7 @@ class Product extends Resource
     public function getAllEtalase(int $shopID)
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/product/etalase',
+            '/inventory/v1/fs/%d/product/etalase',
             $this->getFulfillmentServiceID()
         );
 
@@ -251,7 +251,7 @@ class Product extends Resource
     public function createProducts(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v2/products/fs/%s/create',
+            '/v2/products/fs/%d/create',
             $this->getFulfillmentServiceID()
         );
 
@@ -277,7 +277,7 @@ class Product extends Resource
     public function editProduct(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v2/products/fs/%s/edit',
+            '/v2/products/fs/%d/edit',
             $this->getFulfillmentServiceID()
         );
 
@@ -303,7 +303,7 @@ class Product extends Resource
     public function checkUploadStatus(int $shopID, int $uploadID)
     {
         $endpoint = sprintf(
-            '/v2/products/fs/%s/status/%d',
+            '/v2/products/fs/%d/status/%d',
             $this->getFulfillmentServiceID(),
             $uploadID
         );
@@ -329,7 +329,7 @@ class Product extends Resource
     public function setActiveProduct(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v1/products/fs/%s/active',
+            '/v1/products/fs/%d/active',
             $this->getFulfillmentServiceID()
         );
 
@@ -355,7 +355,7 @@ class Product extends Resource
     public function setInactiveProduct(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v1/products/fs/%s/inactive',
+            '/v1/products/fs/%d/inactive',
             $this->getFulfillmentServiceID()
         );
 
@@ -381,7 +381,7 @@ class Product extends Resource
     public function updatePriceOnly(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/price/update',
+            '/inventory/v1/fs/%d/price/update',
             $this->getFulfillmentServiceID()
         );
 
@@ -407,7 +407,7 @@ class Product extends Resource
     public function updateStockOnly(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/inventory/v1/fs/%s/stock/update',
+            '/inventory/v1/fs/%d/stock/update',
             $this->getFulfillmentServiceID()
         );
 
@@ -433,7 +433,7 @@ class Product extends Resource
     public function deleteProduct(int $shopID, array $data)
     {
         $endpoint = sprintf(
-            '/v3/products/fs/%s/delete',
+            '/v3/products/fs/%d/delete',
             $this->getFulfillmentServiceID()
         );
 

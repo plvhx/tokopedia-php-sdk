@@ -149,7 +149,7 @@ class Order extends Resource
     public function getSingleOrder(int $orderID, string $invoiceNo = '')
     {
         $endpoint = sprintf(
-            '/v2/fs/%s/order',
+            '/v2/fs/%d/order',
             $this->getFulfillmentServiceID()
         );
 
@@ -179,7 +179,7 @@ class Order extends Resource
     public function getShippingLabel(int $orderID, int $printed = 0)
     {
         $endpoint = sprintf(
-            '/v1/order/%d/fs/%s/shipping-label',
+            '/v1/order/%d/fs/%d/shipping-label',
             $orderID,
             $this->getFulfillmentServiceID()
         );
@@ -207,7 +207,7 @@ class Order extends Resource
         $response = $this->call(
             'POST',
             sprintf(
-                '/v1/order/%d/fs/%s/ack',
+                '/v1/order/%d/fs/%d/ack',
                 $orderID,
                 $this->getFulfillmentServiceID()
             )
@@ -228,7 +228,7 @@ class Order extends Resource
         $response = $this->call(
             'POST',
             sprintf(
-                '/v1/order/%d/fs/%s/nack',
+                '/v1/order/%d/fs/%d/nack',
                 $orderID,
                 $this->getFulfillmentServiceID()
             ),
@@ -250,7 +250,7 @@ class Order extends Resource
         $response = $this->call(
             'POST',
             sprintf(
-                '/v1/order/%d/fs/%s/status',
+                '/v1/order/%d/fs/%d/status',
                 $orderID,
                 $this->getFulfillmentServiceID()
             ),
@@ -271,7 +271,7 @@ class Order extends Resource
         $response = $this->call(
             'POST',
             sprintf(
-                '/inventory/v1/fs/%s/pick-up',
+                '/inventory/v1/fs/%d/pick-up',
                 $this->getFulfillmentServiceID()
             ),
             $data
