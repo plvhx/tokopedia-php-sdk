@@ -8,11 +8,13 @@ use Gandung\Tokopedia\ServiceFactory;
 use Gandung\Tokopedia\Auth\Authorization;
 use Gandung\Tokopedia\Service\Campaign;
 use Gandung\Tokopedia\Service\Category;
+use Gandung\Tokopedia\Service\Encryption;
 use Gandung\Tokopedia\Service\Interaction;
 use Gandung\Tokopedia\Service\Logistic;
 use Gandung\Tokopedia\Service\Order;
 use Gandung\Tokopedia\Service\Product;
 use Gandung\Tokopedia\Service\Shop;
+use Gandung\Tokopedia\Service\Webhooks;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -52,6 +54,11 @@ class ServiceFactoryTest extends TestCase
         $this->assertInstanceOf(Category::class, $this->factory->getCategory());
     }
 
+    public function testCanGetEncryptionServiceObject()
+    {
+        $this->assertInstanceOf(Encryption::class, $this->factory->getEncryption());
+    }
+
     public function testCanGetInteractionServiceObject()
     {
         $this->assertInstanceOf(Interaction::class, $this->factory->getInteraction());
@@ -75,5 +82,10 @@ class ServiceFactoryTest extends TestCase
     public function testCanGetShopServiceObject()
     {
         $this->assertInstanceOf(Shop::class, $this->factory->getShop());
+    }
+
+    public function testCanGetWebhooksServiceObject()
+    {
+        $this->assertInstanceOf(Webhooks::class, $this->factory->getWebhooks());
     }
 }

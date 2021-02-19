@@ -64,4 +64,11 @@ interface ServiceFactoryInterface
      * @return ServiceInterface
      */
     public function getShop();
+
+    /**
+     * Get webhooks service.
+     *
+     * @return ServiceInterface
+     */
+    public function getWebhooks();
 }

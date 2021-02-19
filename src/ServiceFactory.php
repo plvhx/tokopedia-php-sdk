@@ -13,6 +13,7 @@ use Gandung\Tokopedia\Service\Logistic;
 use Gandung\Tokopedia\Service\Order;
 use Gandung\Tokopedia\Service\Product;
 use Gandung\Tokopedia\Service\Shop;
+use Gandung\Tokopedia\Service\Webhooks;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -97,5 +98,13 @@ final class ServiceFactory implements ServiceFactoryInterface
     public function getShop()
     {
         return new Shop($this->getAuthorization());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWebhooks()
+    {
+        return new Webhooks($this->getAuthorization());
     }
 }
