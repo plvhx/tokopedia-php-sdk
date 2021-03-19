@@ -49,4 +49,22 @@ interface AuthorizationInterface extends ServiceInterface
      * @return string
      */
     public function getCacheTag();
+
+    /**
+     * Determine if authorization object caller
+     * want to save fetched authorization metadata
+     * or otherwise.
+     *
+     * @var bool $cached
+     * @return void
+     */
+    public function useCache(bool $cached);
+
+    /**
+     * Check if current authorization metadata
+     * is cached or not.
+     *
+     * @return bool
+     */
+    public function isCached(): bool;
 }

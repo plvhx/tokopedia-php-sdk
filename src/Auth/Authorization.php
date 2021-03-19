@@ -34,14 +34,24 @@ class Authorization extends AbstractService implements AuthorizationInterface
     private $cacheTag = 'authorization_metadata';
 
     /**
+     * @var bool
+     */
+    private $cached;
+
+    /**
      * @param CacheItemPoolInterface $cachePool
      * @param array $config
+     * @param bool $cached
      * @return void
      */
-    public function __construct(CacheItemPoolInterface $cachePool, array $config)
-    {
+    public function __construct(
+        CacheItemPoolInterface $cachePool,
+        array $config,
+        bool $cached = false
+    ) {
         parent::__construct($config);
         $this->setCachePool($cachePool);
+        $this->useCache($cached);
     }
 
     /**
@@ -49,6 +59,10 @@ class Authorization extends AbstractService implements AuthorizationInterface
      */
     public function authorize()
     {
+        if (!$this->isCached()) {
+            return $this->getCredentialFromServer();
+        }
+
         $currentCredential = $this->getCurrentCredentialFromCache();
 
         if (null === $currentCredential) {
@@ -89,6 +103,22 @@ class Authorization extends AbstractService implements AuthorizationInterface
     public function getCacheTag()
     {
         return $this->cacheTag;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function useCache(bool $cached)
+    {
+        $this->cached = $cached;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCached(): bool
+    {
+        return $this->cached;
     }
 
     /**

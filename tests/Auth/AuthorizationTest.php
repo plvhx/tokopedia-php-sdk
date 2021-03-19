@@ -47,7 +47,8 @@ class AuthorizationTest extends TestCase
     {
         $this->setAuthorization(new Authorization(
             new ArrayCachePool(),
-            ['client_secret' => 'abc', 'client_id' => 'cba']
+            ['client_secret' => 'abc', 'client_id' => 'cba'],
+            true
         ));
     }
 
