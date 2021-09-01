@@ -198,6 +198,30 @@ class Product extends Resource
     }
 
     /**
+     * Get all product variants by category ID (V2).
+     *
+     * @param  int $categoryID Category ID.
+     * @return string
+     */
+    public function getAllVariantsByCategoryIDV2(int $categoryID)
+    {
+        $endpoint = sprintf(
+            '/inventory/v2/fs/%d/category/get_variant',
+            $this->getFulfillmentServiceID()
+        );
+
+        $queryParams           = [];
+        $queryParams['cat_id'] = $categoryID;
+
+        $response = $this->call(
+            'GET',
+            sprintf('%s?%s', $endpoint, http_build_query($queryParams))
+        );
+
+        return $this->getContents($response);
+    }
+
+    /**
      * Get all product variants by product ID.
      *
      * @param int $productID Product ID.
